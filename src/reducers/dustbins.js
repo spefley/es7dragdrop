@@ -1,15 +1,41 @@
+const dustbin = (state = {}, action) => {
+  switch (action.type) {
+    case 'ADD_TO_BIN': 
+      return {
+        item: action.item_name,
+        type: action.item_type
+      }
+
+    default:
+      return state
+  }
+} 
+
+
+const dustbins = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_TO_BIN':
+      return [...state, dustbin(undefined, action)]
+
+    default:
+      return state
+  }
+} 
+/*
 const dustbins = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TO_BIN':
       var newState = state.map(box => {
-        return {accepts: [... box.accepts] , lastDroppedItem: box.lastDroppedItem}
+        return {droppedItems: [... box.droppedItems]}
         }
       )
-      newState[action.index].lastDroppedItem  = action.item
+      console.log(newState)
+      newState.droppedItems  = action.item
+
       return newState
     default:
       return state
   }
 }
-
+*/
 export default dustbins

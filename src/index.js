@@ -4,12 +4,16 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './components/App'
 import reducer from './reducers'
-import ItemTypes from './components/ItemTypes'
 
-const store = createStore(reducer, {todos: [], visibilityFilter: "SHOW_ALL", dustbins:[{ accepts: [ItemTypes.GLASS], lastDroppedItem: null },
+/*
+const store = createStore(reducer, {dustbins:[{ accepts: [ItemTypes.GLASS], lastDroppedItem: null },
         { accepts: [ItemTypes.FOOD], lastDroppedItem: null },
         { accepts: [ItemTypes.PAPER, ItemTypes.GLASS], lastDroppedItem: null },
         { accepts: [ItemTypes.PAPER], lastDroppedItem: null }]})
+*/
+
+const store = createStore(reducer, {dustbins: [] })
+
 
 render(
   <Provider store={store}>

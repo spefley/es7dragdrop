@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
 
-const style = {
+const box_style = {
   border: '1px dashed gray',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
@@ -14,10 +14,25 @@ const style = {
 const boxSource = {
   beginDrag(props) {
     return {
-      name: props.name
+      name: props.name,
+      type: props.type
     };
   }
 };
+
+/* working on onClick code here. commented out for now.
+
+fix CSS for backgroundColor on Box for stationary, dragging and onClick
+
+const Box = ({ onClick }) => (
+  <li 
+    onClick={onClick}
+    style={{
+      backgroundColor: 'lightgreen'
+      
+    }}
+  />)
+*/
 
 @DragSource(props => props.type, boxSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
@@ -29,19 +44,38 @@ export default class Box extends Component {
     isDragging: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    isDropped: PropTypes.bool.isRequired
+    //onClick: PropTypes.bool.isRequired
   };
 
   render() {
-    const { name, isDropped, isDragging, connectDragSource } = this.props;
+    const { name, isDragging, connectDragSource } = this.props;
     const opacity = isDragging ? 0.4 : 1;
 
+    /*
+    let backgroundColor = 'white';
+    if (onClick) {
+      backgroundColor = 'lightgreen';
+
     return connectDragSource(
-      <div style={{ ...style, opacity }}>
-        {isDropped ?
-          <s>{name}</s> :
-          name
+      <div style-{{ ...style, backgroundColor }]>
+        Release to Drop 
+
+        { droppedItems &&
+          <p>DroppedItems: {JSON.stringify(droppedItems)}</p>
         }
+
+        { droppedItems.map(({ item, type }, index) => 
+          <Box name ={item}
+               type={type}
+               key={index} />
+        )}
+      </div>
+    )
+    */
+
+    return connectDragSource(
+      <div style={{ ...box_style, opacity }}>
+        {name}
       </div>
     );
   }

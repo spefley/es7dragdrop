@@ -1,9 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
+import ItemTypes from './ItemTypes';
+import Box from './Box';
 
 const style = {
-  height: '12rem',
-  width: '12rem',
+  height: '15rem',
+  width: '15rem',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   color: 'white',
@@ -20,42 +22,45 @@ const dustbinTarget = {
   }
 };
 
-@DropTarget(props => props.accepts, dustbinTarget, (connect, monitor) => ({
+@DropTarget([ItemTypes.BUTTON, ItemTypes.LABEL, ItemTypes.TABLE], dustbinTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
+  isOver: monitor.isOver()
+
+  //canDrop: monitor.canDrop()
 }))
 export default class Dustbin extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
-    accepts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    lastDroppedItem: PropTypes.object,
-    onDrop: PropTypes.func.isRequired
+    //canDrop: PropTypes.bool.isRequired,
+    //accepts: PropTypes.arrayOf(PropTypes.string),
+    //lastDroppedItem: PropTypes.object,
+    onDrop: PropTypes.func.isRequired,
+
+    droppedItems: PropTypes.arrayOf(PropTypes.object)
   };
 
   render() {
-    const { accepts, isOver, canDrop, connectDropTarget, lastDroppedItem } = this.props;
-    const isActive = isOver && canDrop;
+    const { isOver, connectDropTarget, droppedItems } = this.props;
 
     let backgroundColor = '#222';
-    if (isActive) {
+    if (isOver) {
       backgroundColor = 'darkgreen';
-    } else if (canDrop) {
-      backgroundColor = 'darkkhaki';
-    }
+    } 
 
     return connectDropTarget(
       <div style={{ ...style, backgroundColor }}>
-        {isActive ?
-          'Release to drop' :
-          'This dustbin accepts: ' + accepts.join(', ')
+        Release to Drop
+
+        {droppedItems &&
+          <p>Dropped Items: {JSON.stringify(droppedItems)}</p>
         }
 
-        {lastDroppedItem &&
-          <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p>
-        }
+        {droppedItems.map(({ item, type }, index) =>
+            <Box name={item}
+                 type={type}
+                 key={index} />
+        )}
       </div>
     );
   }

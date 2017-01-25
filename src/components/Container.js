@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
+import HTML5Backend from 'react-dnd-html5-backend';
 import Dustbin from './Dustbin';
 import Box from './Box';
 import ItemTypes from './ItemTypes';
-import update from 'react/lib/update';
+//import update from 'react/lib/update';
 
 @DragDropContext(HTML5Backend)
 export default class Container extends Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
-
-  isDropped(boxName) {
-    //return this.state.droppedBoxNames.indexOf(boxName) > -1;
-    return false;
-  }
+  } */
 
   render() {
     //const { dustbins } = this.state;
@@ -23,27 +18,24 @@ export default class Container extends Component {
     //console.log(this.props.dustbins);
     
     const boxes = [
-        { name: 'Bottle', type: ItemTypes.GLASS },
-        { name: 'Banana', type: ItemTypes.FOOD },
-        { name: 'Magazine', type: ItemTypes.PAPER }
+        { name: 'Button', type: ItemTypes.BUTTON },
+        { name: 'Label', type: ItemTypes.LABEL },
+        { name: 'Table', type: ItemTypes.TABLE }
       ]
+      // onDrop is where the problem is
 
     return (
       <div>
-        <div style={{ overflow: 'hidden', clear: 'both' }}>
-          {dustbins.map(({ accepts, lastDroppedItem }, index) =>
-            <Dustbin accepts={accepts}
-                     lastDroppedItem={lastDroppedItem}
-                     onDrop={(item) => this.props.handleDrop(index, item)}
-                     key={index} />
-          )}
+        <div style={{overflow: 'hidden', clear: 'both' }}>
+          <Dustbin droppedItems={dustbins}
+                   onDrop={(item) => this.props.handleDrop(item)}
+                   />        
         </div>
 
         <div style={{ overflow: 'hidden', clear: 'both' }}>
           {boxes.map(({ name, type }, index) =>
             <Box name={name}
                  type={type}
-                 isDropped={this.isDropped(name)}
                  key={index} />
           )}
         </div>
