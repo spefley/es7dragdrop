@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import dustbins from './dustbins'
+import components from './components'
 
 const todoApp = combineReducers({
-  dustbins
+  dustbins,
+  components
 })
 
 export default todoApp

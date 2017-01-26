@@ -6,3 +6,10 @@ export function addToBin(item) {
 		item_name: item.name
 	}
 }
+
+export function addNewComponent(item) {
+	return {
+		type: 'ADD_NEW_COMPONENT',
+		item_type: item.type
+	}
+}
