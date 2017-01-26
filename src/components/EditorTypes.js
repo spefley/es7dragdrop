@@ -1,98 +1,271 @@
 import React, { PropTypes, Component } from 'react';
 
-let defType = <button type="button">Hi</button>;
-/*let editorTypes = {
-	"textArea": <textarea value={prop.value}></textarea>,
-	"horizontal_alignment": defType,
-	"vertical_alignment": defType,
-	"string": <input type="text" value={prop.value}/>,
-	"color": defType,
-	"asset": defType,
-	"screen_animation": defType,
-	"screen_orientation": defType,
-	"boolean": <input type="checkbox" value={prop.value}/>,
-	"sizing": <select value={prop.value}>
-							<option value="fixed">Fixed</option>
-							<option value="responsive">Responsive</option>
-						</select>,
-	"non_negative_integer": <input type="number" min="0" step="1" value={prop.value}/>
-}
+let defType = <button type="button">Upload/Color</button>;
 
-export default class EditorTypes extends Component {
-	render() {
-		return {this.props.editorType};
-	}
-}*/
-
-export class textArea extends Component {
+export class TextArea extends Component {
   render() {
     return <textarea value={this.props.value}></textarea>;
   }
 }
-
-export class horizontal_alignment extends Component {
+export class HorizontalAlignment extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="1">Left: 1</option>
+				<option value="3">Center: 3</option>
+				<option value="2">Right: 2</option>
+			</select>
+		);
 	}
 }
-
-export class vertical_alignment extends Component {
+export class VerticalAlignment extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="1">Top: 1</option>
+				<option value="2">Center: 2</option>
+				<option value="3">Bottom: 3</option>
+			</select>
+		);
 	}
 }
-
-export class string extends Component {
+export class StringInput extends Component {
 	render() {
 		return <input type="text" value={this.props.value}/>;
 	}
 }
-
-export class color extends Component {
+export class ColorInput extends Component {
 	render() {
 		return defType;
 	}
 }
-
-export class asset extends Component {
+export class Asset extends Component {
 	render() {
 		return defType;
 	}
 }
-
-export class screen_animation extends Component {
+export class ScreenAnimation extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="default">Default</option>
+				<option value="fade">Fade</option>
+				<option value="zoom">Zoom</option>
+				<option value="slide_horizontal">SlideHorizontal</option>
+				<option value="slide_vertical">SlideVertical</option>
+				<option value="none">None</option>
+			</select>
+		);
 	}
 }
-
-export class screen_orientation extends Component {
+export class ScreenOrientation extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="unspecified">Unspecified</option>
+				<option value="portrait">Portrait</option>
+				<option value="landscape">Landscape</option>
+				<option value="sensor">Sensor</option>
+				<option value="user">User</option>
+			</select>
+		);
 	}
 }
-
-export class bool extends Component {
+export class Bool extends Component {
 	render() {
 		return <input type="checkbox" value={this.props.value}/>;
 	}
 }
-
-export class sizing extends Component {
+export class Sizing extends Component {
 	render() {
-		return
+		return (
 			<select value={this.props.value}>
-				<option value="fixed">Fixed</option>
-				<option value="responsive">Responsive</option>
-			</select>;
+				<option value="Fixed">Fixed</option>
+				<option value="Responsive">Responsive</option>
+			</select>
+		);
 	}
 }
-
-export class non_negative_integer extends Component {
+export class NonNegativeInteger extends Component {
 	render() {
 		return <input type="number" min="0" step="1" value={this.props.value}/>;
 	}
 }
+export class AccelerometerSensitivity extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="1">weak</option>
+				<option value="2">moderate</option>
+				<option value="3">strong</option>
+			</select>
+		);
+	}
+}
+export class Float extends Component {
+	render() {
+		return <input type="number" step="0.01" value={this.props.value}/>;
+	}
+}
+export class Typeface extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="0">{"default"}</option>
+				<option value="1">san serif</option>
+				<option value="2">serif</option>
+				<option value="3">monospace</option>
+			</select>
+		);
+	}
+}
+export class ButtonShape extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="0">{"default"}</option>
+				<option value="1">rounded</option>
+				<option value="2">rectangular</option>
+				<option value="3">oval</option>
+			</select>
+		);
+	}
+}
+export class TextAlignment extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="0">left: 0</option>
+				<option value="1">center: 1</option>
+				<option value="2">right: 2</option>
+			</select>
+		);
+	}
+}
+export class Visibility extends Component {
+	render() {
+		return <input type="checkbox" value={this.props.value}/>;
+	}
+}
+export class NonNegativeFloat extends Component {
+	render() {
+		return <input type="number" min="0" step="0.01" value={this.props.value}/>
+	}
+}
+export class BluetoothClient extends Component {
+	render() {
+		return defType;
+	}
+}
+export class LegoEv3ColorSensorMode extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="reflected">reflected</option>
+				<option value="ambient">ambient</option>
+				<option value="color">color</option>
+			</select>
+		);
+	}
+}
+export class LegoEv3SensorPort extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+		);
+	}
+}
+export class LegoEV3GyroSensorMode extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="angle">angle</option>
+				<option value="rate">rate</option>
+			</select>
+		);
+	}
+}
+export class LegoEv3UltrasonicSensorMode extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="cm">cm</option>
+				<option value="inch">inch</option>
+			</select>
+		);
+	}
+}
+export class FirbaseURL extends Component {
+	render() {
+		return (
+			<span>
+				<input type="text" value={this.props.value}/>
+				<input type="checkbox" value={this.props.value}/>
+			</span>
+		);
+	}
+}
+export class SensorDistInterval extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="5">0</option>
+				<option value="1">1</option>
+				<option value="10">10</option>
+				<option value="100">100</option>
+			</select>
+		);
+	}
+}
+export class SensorTimeInterval extends Component {
+	render() {
+		return (
+			<select value={this.props.value}>
+				<option value="0">0</option>
+				<option value="1000">1000</option>
+				<option value="10000">10000</option>
+				<option value="60000">60000</option>
+				<option value="300000">300000</option>
+			</select>
+		);
+	}
+}
+export class ToastLength extends Component {
+	render() {
+		return defType;
+	}
+}
+export class LegoNxtGeneratedColor extends Component {
+	render() {
+		return defType;
+	}
+}
+export class LegoNxtSensorPort extends Component {
+	render() {
+		return defType;
+	}
+}
+export class Countries extends Component {
+	render() {
+		return defType;
+	}
+}
+export class Languages extends Component {
+	render() {
+		return defType;
+	}
+}
+export class TextReceiving extends Component {
+	render() {
+		return defType;
+	}
+}
 
-let EditorTypes = {textArea, horizontal_alignment, vertical_alignment, string, color, asset, screen_animation, screen_orientation, bool, sizing, non_negative_integer};
+let EditorTypes = {TextArea, HorizontalAlignment, VerticalAlignment, StringInput, ColorInput, Asset, ScreenAnimation, ScreenOrientation, Bool, Sizing, NonNegativeInteger, AccelerometerSensitivity, Float, Typeface, ButtonShape, TextAlignment, Visibility, NonNegativeFloat, BluetoothClient, LegoEv3ColorSensorMode, LegoEv3SensorPort, LegoEV3GyroSensorMode, LegoEv3UltrasonicSensorMode, FirbaseURL, SensorDistInterval, SensorTimeInterval, ToastLength, LegoNxtGeneratedColor, LegoNxtSensorPort, Countries, Languages, TextReceiving
+};
 export default EditorTypes;

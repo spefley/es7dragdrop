@@ -1,3 +1,4 @@
+// creates component
 const component = (state = {}, action) => {
 	switch (action.type) {
 		case 'ADD_NEW_COMPONENT':
@@ -10,6 +11,7 @@ const component = (state = {}, action) => {
 	}
 }
 
+// store has array of components...update store
 const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
