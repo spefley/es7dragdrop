@@ -7,9 +7,13 @@ export function addToBin(item) {
 	}
 }
 
-export function addNewComponent(item) {
-	return {
-		type: 'ADD_NEW_COMPONENT',
-		item_type: item.type
-	}
+
+let nextId = 0;
+
+export function addNewComponent(componentType) {
+  
+  var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, screen)
+
 }
+

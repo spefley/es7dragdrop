@@ -12,7 +12,7 @@ const store = createStore(reducer, {dustbins:[{ accepts: [ItemTypes.GLASS], last
         { accepts: [ItemTypes.PAPER], lastDroppedItem: null }]})
 */
 
-const store = createStore(reducer, {dustbins: [] })
+const store = createStore(reducer, {dustbins: [], components:[{componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:800}] })
 
 
 render(

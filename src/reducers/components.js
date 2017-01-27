@@ -2,9 +2,16 @@
 const component = (state = {}, action) => {
 	switch (action.type) {
 		case 'ADD_NEW_COMPONENT':
-			return {
-				type: action.type_name
+			var screenProperties = [];
+			if(action.componentType == "Form") {
+			  var screenProperties = ["id","name","aboutScreen", "componentType"]
 			}
+			var newState = {};
+			screenProperties.forEach(function(property) {
+			  newState[property] = action[property]
+			});
+			
+			return newState
 
 		default:
 			return state
