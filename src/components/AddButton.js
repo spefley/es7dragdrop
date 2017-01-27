@@ -6,7 +6,7 @@ export default class AddButton extends Component {
     var stateString = JSON.stringify(currentState);
 
 		return (
-			<div>
+			<div style={{width: "600px", 'wordWrap': "break-word"}}>
 				<button onClick={() => this.props.addComponent("Form")}>Hello</button>
 				<span>{stateString}</span>
 			</div>

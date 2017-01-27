@@ -1,12 +1,12 @@
 import React from 'react'
 import DragContainer from '../containers/DragContainer'
 import AddButtonContainer from '../containers/AddButtonContainer'
-import Properties from './Properties'
+import PropertiesContainer from '../containers/PropertiesContainer'
 
 const App = () => (
   <div>
     <DragContainer />
-    <Properties />
+    <PropertiesContainer />
     <AddButtonContainer />
   </div>
 )
