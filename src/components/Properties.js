@@ -6,10 +6,10 @@ export default class Properties extends Component {
   render() {
 		// Get list of properties for specific component	
 		var simpleComponents = simple_components.simpleComponents;
-		var formProp = [];
+		var componentProperties = [];
 		for (var j=0; j<simpleComponents.length;j++) {
-			if (simpleComponents[j].name==="FirebaseDB") {
-				formProp = simpleComponents[j]["properties"];
+			if (simpleComponents[j].name==="Form") {
+				componentProperties = simpleComponents[j]["properties"];
 			}
 			else {
 				console.log('hello')
@@ -55,19 +55,20 @@ export default class Properties extends Component {
 
 
 		var editorTypeArr = [];
-		for (var i=0; i<formProp.length; i++) {
-			var html = typeToHTML[formProp[i].editorType];
-			if (html) {
-				editorTypeArr.push({"name":formProp[i].name, "editorType":html});
+		for (var i=0; i<componentProperties.length; i++) {
+			var propertyType = typeToHTML[componentProperties[i].editorType];
+			if (propertyType) {
+				editorTypeArr.push({"name":componentProperties[i].name, "editorType":propertyType, "defaultValue": componentProperties[i].defaultValue});
 			}
 			else {
-				editorTypeArr.push({"name":formProp[i].name, "editorType":<button type="button">Hi</button>});
+				editorTypeArr.push({"name":componentProperties[i].name, "editorType":<button type="button">Hi</button>, "defaultValue": "Hi"});
 			}
 		}
 
+		console.log(editorTypeArr[0])
 		return (
 			<div>
-				{editorTypeArr.map(({name, editorType, defaultValue}) =>
+				{editorTypeArr.map(({name, editorType}) =>
 					<span> {name} 
 						<br/>
 						{editorType}

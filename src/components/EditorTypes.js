@@ -215,7 +215,7 @@ export class SensorDistInterval extends Component {
 		return (
 			<select value={this.props.value}>
 				<option value="5">0</option>
-				<option value="1">1</option>
+				<option value="6">1</option>
 				<option value="10">10</option>
 				<option value="100">100</option>
 			</select>
@@ -237,7 +237,12 @@ export class SensorTimeInterval extends Component {
 }
 export class ToastLength extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="0">Short</option>
+				<option value="1">Long</option>
+			</select>
+		);
 	}
 }
 export class LegoNxtGeneratedColor extends Component {
@@ -247,22 +252,88 @@ export class LegoNxtGeneratedColor extends Component {
 }
 export class LegoNxtSensorPort extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+		);
 	}
 }
 export class Countries extends Component {
 	render() {
-		return defType;
+		const allCountries = [
+			{name: "Default", val: "Default"}, 
+			{name: "AUS", val: "AUS"}, 
+			{name: "AUT", val: "AUT"}, 
+			{name: "BEL", val: "BEL"}, 
+			{name: "BLZ", val: "BLZ"}, 
+			{name: "BWA", val: "BWA"}, 
+			{name: "CAN", val: "CAN"}, 
+			{name: "DEU", val: "DEU"}, 
+			{name: "ESP", val: "ESP"}, 
+			{name: "FRA", val: "FRA"}, 
+			{name: "GBR", val: "GBR"}, 
+			{name: "HKG", val: "HKG"}, 
+			{name: "IND", val: "IND"}, 
+			{name: "IRL", val: "IRL"}, 
+			{name: "ITA", val: "ITA"}, 
+			{name: "JAM", val: "JAM"}, 
+			{name: "LIE", val: "LIE"}, 
+			{name: "LUX", val: "LUX"}, 
+			{name: "MCO", val: "MCO"}, 
+			{name: "MHL", val: "MHL"}, 
+			{name: "MLT", val: "MLT"}, 
+			{name: "NAM", val: "NAM"}, 
+			{name: "NZL", val: "NZL"}, 
+			{name: "PAK", val: "PAK"}, 
+			{name: "PHL", val: "PHL"}, 
+			{name: "SGP", val: "SGP"}, 
+			{name: "TTO", val: "TTO"}, 
+			{name: "USA", val: "USA"}, 
+			{name: "VIR", val: "VIR"}, 
+			{name: "ZAP", val: "ZAP"}, 
+			{name: "ZWE", val: "ZWE"}
+		];
+		return (
+			<select value={this.props.value}>
+				{allCountries.map(({name, val}) => 
+					<option value={val}>{name}</option>
+				)}
+			</select>
+		);
 	}
 }
 export class Languages extends Component {
 	render() {
-		return defType;
+		const allLanguages = [
+			{name: "Default", val: "Default"},
+			{name: "de", val: "de"},
+			{name: "en", val: "en"},
+			{name: "es", val: "es"},
+			{name: "fr", val: "fr"},
+			{name: "it", val: "it"}
+		]
+		return (
+			<select value={this.props.value}>
+				{allLanguages.map(({name, val}) => 
+					<option value={val}>{name}</option>
+				)}
+			</select>
+		);
 	}
 }
 export class TextReceiving extends Component {
 	render() {
-		return defType;
+		return (
+			<select value={this.props.value}>
+				<option value="1">Off</option>
+				<option value="2">Foreground</option>
+				<option value="3">Always</option>
+			</select>
+		);
 	}
 }
 
