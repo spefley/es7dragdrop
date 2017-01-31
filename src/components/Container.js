@@ -18,11 +18,10 @@ export default class Container extends Component {
     //console.log(this.props.dustbins);
     
     const boxes = [
-        { name: 'Button', type: ItemTypes.BUTTON },
-        { name: 'Label', type: ItemTypes.LABEL },
-        { name: 'Table', type: ItemTypes.TABLE }
+        { name: 'Button', type: ItemTypes.BUTTON, id: true },
+        { name: 'Label', type: ItemTypes.LABEL, id: true },
+        { name: 'Table', type: ItemTypes.TABLE, id: true }
       ]
-      // onDrop is where the problem is
 
     return (
       <div>
@@ -33,9 +32,10 @@ export default class Container extends Component {
         </div>
 
         <div style={{ overflow: 'hidden', clear: 'both' }}>
-          {boxes.map(({ name, type }, index) =>
+          {boxes.map(({ name, type, id }, index) =>
             <Box name={name}
                  type={type}
+                 id={id}
                  key={index} />
           )}
         </div>

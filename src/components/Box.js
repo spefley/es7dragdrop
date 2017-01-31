@@ -1,42 +1,32 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
+import Container from './Container';
 
 const box_style = {
   border: '1px dashed gray',
-  backgroundColor: 'white',
+  //backgroundColor: 'white',
   padding: '0.5rem 1rem',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   cursor: 'move',
-  float: 'left'
+  float: 'left',
+  color: 'black'
 };
 
 const boxSource = {
   beginDrag(props) {
     return {
       name: props.name,
-      type: props.type
+      type: props.type,
+      id: props.id
     };
   }
 };
 
-/* working on onClick code here. commented out for now.
-
-fix CSS for backgroundColor on Box for stationary, dragging and onClick
-
-const Box = ({ onClick }) => (
-  <li 
-    onClick={onClick}
-    style={{
-      backgroundColor: 'lightgreen'
-      
-    }}
-  />)
-*/
 
 @DragSource(props => props.type, boxSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
+  isDragging: monitor.isDragging(),
 }))
 export default class Box extends Component {
   static propTypes = {
@@ -44,37 +34,32 @@ export default class Box extends Component {
     isDragging: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    //onClick: PropTypes.bool.isRequired
+    id: PropTypes.bool,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: false};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
 
   render() {
     const { name, isDragging, connectDragSource } = this.props;
     const opacity = isDragging ? 0.4 : 1;
 
-    /*
     let backgroundColor = 'white';
-    if (onClick) {
-      backgroundColor = 'lightgreen';
+    if (this.state.isToggleOn) {
+      backgroundColor = 'lightgreen'
+    }
 
     return connectDragSource(
-      <div style-{{ ...style, backgroundColor }]>
-        Release to Drop 
-
-        { droppedItems &&
-          <p>DroppedItems: {JSON.stringify(droppedItems)}</p>
-        }
-
-        { droppedItems.map(({ item, type }, index) => 
-          <Box name ={item}
-               type={type}
-               key={index} />
-        )}
-      </div>
-    )
-    */
-
-    return connectDragSource(
-      <div style={{ ...box_style, opacity }}>
+      <div onClick={this.handleClick} style={{ ...box_style, opacity, backgroundColor }}>
         {name}
       </div>
     );

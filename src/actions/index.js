@@ -8,16 +8,37 @@
  * selectComponent - updates which component is selected
  * toggleComponent - updates component if toggled
  */
+let nextId = 0
 
 export function addToBin(item) {
 	return {
 		type: 'ADD_TO_BIN',
 		item_type: item.type,
-		item_name: item.name
+		item_name: item.name,
+		id: nextId++
 	}
 }
 
+
 let nextId = 2;
+
+export function addNewComponent(compType) {
+  var allComps = simple_components.simpleComponents;
+  
+  for (var i=0; i<allComps.length; i++) {
+  	if (allComps[i].name === "Button") {
+  		var allProperties = allComps[i].properties;
+  	}
+  }
+
+  var compProperties = {componentType: "Button", name:"Screen1", id:nextId++};
+  for (var j=0; j<allProperties.length; j++) {
+  	compProperties[allProperties[j].name] = allProperties[j].defaultValue;
+  }
+  // var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
+  
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
+}
 
 // new component added as child of Screen1 in Components and added to store
 export function addNewComponent(compType, selectedScreen) {
@@ -37,6 +58,7 @@ export function selectComponent(componentId) {
   return Object.assign({type: 'SELECT_COMPONENT'}, {id: componentId})
 }
 
+
 // if toggled, subcomponents are shown/hidden, selectedComponents change if 
 // current selectedComponent is hidden due to toggled parent
 export function toggleComponent(componentId, hasSelectedSubcomp) {
@@ -50,3 +72,8 @@ export function selectScreen(screenId) {
 export function deleteComponent(compId, selScreen, delScreen) {
   return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, selectedScreen: selScreen, deleteScreen: delScreen})
 }
+
+// update component
+// id, property name, new property value
+
+
