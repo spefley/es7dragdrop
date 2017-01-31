@@ -6,16 +6,16 @@ import simple_components from '../components/simple_components';
  * add new component to list of components or update specific property of a component
  * update the selected Component
  */
+let nextId = 0
 
 export function addToBin(item) {
 	return {
 		type: 'ADD_TO_BIN',
 		item_type: item.type,
-		item_name: item.name
+		item_name: item.name,
+		id: nextId++
 	}
 }
-
-let nextId = 0;
 
 export function addNewComponent(compType) {
   var allComps = simple_components.simpleComponents;
@@ -48,3 +48,4 @@ export function selectComponent(componentId) {
 
 // update component
 // id, property name, new property value
+

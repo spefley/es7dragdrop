@@ -9,10 +9,17 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   handleDrop: (item) => {
-    //dispatch(addBin(index, item))
-    console.log(item)
-    console.log(item.name)
-    dispatch(addToBin(item))
+    /* if (!item.hasOwnProperty('id')) {
+    	console.log(item.hasOwnProperty('id')) //returns False even though it should be true for the boxes in dustbin??
+    	dispatch(addToBin(item))
+    } */
+
+  	// console.log(item.id)
+    // dispatch(addToBin(item))
+
+    if (item.id) {
+    	dispatch(addToBin(item))
+    }
 
   }
 })
