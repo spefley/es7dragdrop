@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
-import Container from './Container';
 
 const box_style = {
   border: '1px dashed gray',
@@ -20,18 +19,31 @@ const boxSource = {
       type: props.type,
       id: props.id
     };
-  }
+  },
+  /*
+  endDrag(props, monitor, component) {
+    /*if (!monitor.didDrop()) {
+      console.log('it didnt drop');
+    } else {
+      console.log('did drop');
+    }
+    if (component !== null ) {
+      component.setState(false)
+    } 
+  }*/
 };
 
 
 @DragSource(props => props.type, boxSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
+  //didDrop: monitor.didDrop()
 }))
 export default class Box extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
+    //didDrop: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     id: PropTypes.bool,
