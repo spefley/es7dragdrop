@@ -1,91 +1,79 @@
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
-import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes from './ItemTypes';
+import React, { Component, PropTypes } from 'react';
+import { DragSource, DropTarget } from 'react-dnd';
+import Tree from './s_Tree';
 
-const style = {
-	border: '1px dashed gray', 
-	padding: '0.5rem 1rem', 
-	marginBottom: '.5rem', 
-	backgroundColor: 'white',
-	cursor: 'move',
-};
-
-const itemSource = {
+const source = {
 	beginDrag(props) {
 		return {
 			id: props.id, 
-			index: props.index,
-		};
+			parent: props.parent, 
+			items: props.item.children
+		}
+	}, 
+
+	isDragging(props, monitor) {
+		return props.id == monitor.getItem().id
+	}
+}
+
+const target = {
+	canDrop() {
+		return false
 	},
-};
 
-const itemTarget = {
-	hover(props, monitor, component) {
-		const dragIndex = monitor.getItem().index;
-		const hoverIndex = props.index;
+	hover(props, monitor) {
+		const {id: draggedId} = monitor.getItem()
+		const {id: overId} = props 
 
-		// Don't replace items with themselves
-		if (dragIndex === hoverIndex) {
+		if (draggedId === overId || draggedId === props.parent) {
 			return;
 		}
 
-		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top)/2
-		const clientOffset = monitor.getClientOffset();
-		const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-		// Dragging down
-		if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+		if (!monitor.isOver({shallow: true})) {
 			return;
 		}
 
-		// Dragging up
-		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-			return;
-		}
+		props.move(draggedId, overId, props.parent)
+	}
+}
 
-		props.moveItem(dragIndex, hoverIndex);
-		monitor.getItem().index = hoverIndex;
-	},
-};
-
-@DropTarget('ITEM', itemTarget, connect => ({
-	connectDropTarget: connect.dropTarget(),
+@DropTarget('ITEM', target, connect => ({
+	connectDropTarget: connect.dropTarget()
 }))
-@DragSource('ITEM', itemSource, (connect, monitor) => ({
+@DragSource('ITEM', source, (connect, monitor) => ({
 	connectDragSource: connect.dragSource(), 
-	isDragging: monitor.isDragging(),
+	connectDragPreview: connect.dragPreview(), 
+	isDragging: monitor.isDragging()
 }))
 export default class Item extends Component {
 	static propTypes = {
-		connectDragSource: PropTypes.func.isRequired,
-    	connectDropTarget: PropTypes.func.isRequired,
-    	index: PropTypes.number.isRequired,
-    	isDragging: PropTypes.bool.isRequired,
-    	id: PropTypes.any.isRequired,
-    	text: PropTypes.string.isRequired,
-    	moveItem: PropTypes.func.isRequired
-    };
+		id: PropTypes.any.isRequired,
+		parent: PropTypes.any, 
+		item: PropTypes.object, 
+		move: PropTypes.func, 
+		find: PropTypes.func
+	};
 
-    render() {
-    	const { text, isDragging, connectDropTarget, connectDragSource } = this.props;
-    	const opacity = isDragging ? 0 : 1;
+	render() {
+		const {connectDropTarget, connectDragPreview, connectDragSource, 
+			item: {id, title, children}, parent, move, find} = this.props
 
-    	return connectDragSource(connectDropTarget(
-    		<div style={{ ...style, opacity}}>
-    			{text}
-    		</div>,
-    	));
-    }
-
+		return connectDropTarget(connectDragPreview(
+			<div>
+				{connectDragSource(
+					<div style={{
+						background: 'white',
+						padding: '0.5em', 
+					}}
+					>{title}</div>
+				)}
+				<Tree 
+					parent={id}
+					items={children}
+					move={move}
+					find={find}
+				/>
+			</div>
+		))
+	}
 }
-
-
-
-
-
-
-
-
-
