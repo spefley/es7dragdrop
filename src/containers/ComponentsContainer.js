@@ -8,7 +8,8 @@ import { selectComponent } from '../actions'
  */
 
 const mapStateToProps = (state, ownProps) => ({
-  components: state.components
+  components: state.components,
+  selectedComponent: state.selectedComponent
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

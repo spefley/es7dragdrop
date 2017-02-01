@@ -9,12 +9,19 @@ import { create_tree } from './ComponentTree'
  * when clicked.
  */
 
+var button_style = {
+	padding: '0.5em',
+	font: '10pt Arial'
+}
+
+
 export default class AIComponents extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 	}
 	handleChange(id) {
+
 		return this.props.chooseComponent(id);
 	}
 
@@ -29,7 +36,7 @@ export default class AIComponents extends Component {
 		var subs = nestedTree["$Components"];
 		return (
 			<div>
-				<ComponentNode name={name} id={id} subcomponents={subs} onClickFunction={componentsPanel.handleChange}/>
+				<ComponentNode name={name} id={id} subcomponents={subs} onClickFunction={componentsPanel.handleChange} selectedComponent = {this.props.selectedComponent}/>
 			</div>
 		);
 	}

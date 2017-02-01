@@ -21,24 +21,24 @@ const headings = {
 	backgroundColor: 'turquoise',
 	fontWeight: 'bold',
 	borderBottom: '2px solid black',
-	marginRight: '0',
-	marginBottom: '0.5em'
+	margin:'0.5em',
+	float:'center'
 }
 
 const App = () => (
 	<div>
 		<div style={{...panel_style}}>
-			<div style={{...headings}}>Components</div>
+			<div style={headings}>Components</div> 
 			<ComponentsContainer />
 		</div>
 
 
 		<div style={{...panel_style}}>
-			<div style={{...headings}}>Properties</div>
+			<div style={headings}>Properties</div>
 			<PropertiesContainer />
 		</div>
 
-		<div style={{...panel_style}}>
+		<div style={panel_style}>
 			<DragContainer />
 		</div>
 	</div>
