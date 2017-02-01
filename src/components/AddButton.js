@@ -7,7 +7,7 @@ export default class AddButton extends Component {
 
 		return (
 			<div style={{width: "600px", 'wordWrap': "break-word"}}>
-				<button onClick={() => this.props.addComponent("Form")}>Hello</button>
+				<button onClick={() => this.props.addComponent("Button")}>Hello</button>
 				<span>{stateString}</span>
 			</div>
 		);

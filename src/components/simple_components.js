@@ -1,3 +1,9 @@
+/** 
+ * simpleComponents includes all information about all components that are
+ * in App Inventor, including properties, name, version, etc.
+ */
+
+
 var simpleComponents = [{ "type": "com.google.appinventor.components.runtime.AccelerometerSensor",
   "name": "AccelerometerSensor",
   "external": "false",
