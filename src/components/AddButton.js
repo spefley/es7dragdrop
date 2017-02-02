@@ -43,15 +43,19 @@ export default class AddButton extends Component {
 						<span>{categoryName}</span>
 						<br/>
 						{componentCategories[categoryName].map((compType) =>
+							<div>
 							<button onClick={() => this.props.addComponent(compType)}>
 								{compType}
+								
 							</button>
+							<br/>
+							</div>
 						)}
 					</div>
 				)}
 
 				<br/>
-				<span>{stateString}</span>
+				
 			</div>
 		);
 	}

@@ -17,6 +17,17 @@ const panel_style = {
 	position: 'relative'
 }
 
+const panel_style_palette = {
+	border: '1px dashed black',
+	backgroundColor: 'lightblue',
+	padding: '0.5em 1em',
+	marginRight: '1.5em',
+	marginBottom: '1.5em',
+	float: 'left',
+	position: 'relative',
+	width:'150px'
+}
+
 const headings = {
 	...panel_style,
 	backgroundColor: 'turquoise',
@@ -28,6 +39,11 @@ const headings = {
 
 const App = () => (
 	<div>
+		<div style={panel_style_palette}>
+			<div style={headings}>Palette</div>
+			<AddButtonContainer />
+		</div>
+		
 		<div style={panel_style}>
 			<DragContainer />
 		</div>
@@ -42,10 +58,7 @@ const App = () => (
 			<PropertiesContainer />
 		</div>
 
-		<div style={panel_style}>
-			<div style={headings}>Palette</div>
-			<AddButtonContainer />
-		</div>
+
 
 	</div>
 )
