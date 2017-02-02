@@ -66,6 +66,39 @@ const components = (state = [], action) => {
 			// console.log(newState)
 			return newState
 
+		case 'MOVE_COMPONENT':
+			var newState = state.map(component => Object.assign({},component))
+			if(action.id == action.afterId) {
+				return newState
+			}
+			if(action.nodeId) {
+				dest = newState.filter(comp => comp.uuid == action.nodeId)[0].children
+			} else {
+			    //screen1
+			    dest = newState[0].children
+			}
+			
+			if (!action.afterId) {
+		      //removeNode(id, tree)
+		      state.map(component => {
+		        if(component.children.indexOf(id) != -1) {
+                  component.children.splice(component.children.indexOf(id),1)
+		        }
+		      })
+    		  dest.push(action.id)
+		    } else {
+		      const index = dest.indexOf(dest.filter(v => v === afterId).shift())
+		      state.map(component => {
+		        if(component.children.indexOf(id) != -1) {
+                  component.children.splice(component.children.indexOf(id),1)
+		        }
+		      })
+		      dest.splice(index, 0, action.id)
+		    }
+			
+			return newState
+
+
 		default:
 			return state
 	}
