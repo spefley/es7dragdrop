@@ -3,7 +3,8 @@ import AddButton from '../components/AddButton'
 import { addNewComponent } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
-  components: state.components
+  components: state.components,
+  compType: "Button"
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

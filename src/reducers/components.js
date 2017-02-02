@@ -11,17 +11,12 @@ const component = (state = {}, action) => {
 	var newState = {}
 	switch (action.type) {
 		case 'ADD_NEW_COMPONENT':
-			if(action.componentType === "Button") {
-				componentPropertyNames = Object.keys(action);
-			  // var componentPropertyNames = ["id","name","aboutScreen", "componentType"]
-			}
+			componentPropertyNames = Object.keys(action);
 			componentPropertyNames.forEach(function(property) {
 				if (property !== "type") {
-			  	newState[property] = action[property];
+			  		newState[property] = action[property];
 				}
-
 			});
-			
 			return newState
 
 		case 'UPDATE_COMPONENT':
@@ -32,13 +27,10 @@ const component = (state = {}, action) => {
 			newState[action.propertyName] = action.propertyInputValue;
 			// console.log(newState)
 			return newState
-
-
 		// case 'UPDATE_COMPONENT':
 			// sent in: id, propertyName, value of Property to change to
 			// question: what if propertyName does not exist?
 			// assume that state.id == action.id, bc of components function below
-
 
 		default:
 			return state
@@ -49,7 +41,10 @@ const component = (state = {}, action) => {
 const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
-			return [...state, component(undefined, action)]
+			var updatedState = [...state, component(undefined, action)]
+			updatedState[0].children.push(action.Uuid)
+			return updatedState
+			// return [...state, component(undefined, action)]
 
 		// case 'UPDATE_COMPONENT':
 		// search through array
