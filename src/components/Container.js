@@ -7,6 +7,7 @@ import ItemTypes from './ItemTypes';
 
 import SourceBox from './ns_SourceBox';
 import Tree from './s_Tree';
+import { create_tree } from './ComponentTree'
 
 const style = {
   width: 400,
@@ -17,6 +18,9 @@ export default class Container extends Component {
 
   constructor(props) {
     super(props);
+    
+    var nestedTree = create_tree(this.props.components);
+
     this.state = { tree: [
       {id: 1, title: 'wow', children: [
         {id: 2, title: 'yay', children: []},
