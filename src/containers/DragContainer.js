@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 //import { setVisibilityFilter } from '../actions'
 import Container from '../components/Container'
-import { addToBin } from '../actions'
+import { addToBin, moveComponent } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
   dustbins: state.dustbins,
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     	dispatch(addToBin(item))
     }
 
+  },
+  moveComp: (id, afterId, nodeId) => {
+    dispatch(moveComponent(id, afterId, nodeId));
   }
 })
 
