@@ -1,4 +1,4 @@
-import simple_components from '../components/simple_components';
+// import simple_components from '../components/simple_components';
 
 /** 
  * ACTIONS - includes:
@@ -15,23 +15,26 @@ export function addToBin(item) {
 	}
 }
 
-let nextId = 0;
+let nextId = 2;
 
 export function addNewComponent(compType) {
-  var allComps = simple_components.simpleComponents;
-  
-  for (var i=0; i<allComps.length; i++) {
-  	if (allComps[i].name === "Button") {
-  		var allProperties = allComps[i].properties;
-  	}
-  }
+  /*
+    var allComps = simple_components.simpleComponents;
+    
+    for (var i=0; i<allComps.length; i++) {
+    	if (allComps[i].name === "Button") {
+    		var allProperties = allComps[i].properties;
+    	}
+    }
 
-  var compProperties = {componentType: "Button", name:"Screen1", id:nextId++};
-  for (var j=0; j<allProperties.length; j++) {
-  	compProperties[allProperties[j].name] = allProperties[j].defaultValue;
-  }
-  // var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
-  
+    for (var j=0; j<allProperties.length; j++) {
+      compProperties[allProperties[j].name] = allProperties[j].defaultValue;
+    }
+    var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
+  */
+
+  var name = compType + nextId;
+  var compProperties = {componentType: compType, name:name, Uuid:nextId++, version:"1"};
   return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
 
 }
