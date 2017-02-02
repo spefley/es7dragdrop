@@ -4,7 +4,8 @@ import Container from '../components/Container'
 import { addToBin } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
-  dustbins: state.dustbins
+  dustbins: state.dustbins,
+  components: state.components
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
