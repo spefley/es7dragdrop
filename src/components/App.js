@@ -27,6 +27,11 @@ const headings = {
 
 const App = () => (
 	<div>
+
+		<div style={panel_style}>
+			<DragContainer />
+		</div>
+		
 		<div style={{...panel_style}}>
 			<div style={headings}>Components</div> 
 			<ComponentsContainer />
@@ -38,9 +43,6 @@ const App = () => (
 			<PropertiesContainer />
 		</div>
 
-		<div style={panel_style}>
-			<DragContainer />
-		</div>
 	</div>
 )
 
