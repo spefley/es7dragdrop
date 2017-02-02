@@ -48,8 +48,8 @@ export default class Tree extends Component {
 			}}>
 				{items.map((item, i) => {
 					return <Item 
-						key={item.id}
-						id={item.id}
+						key={item.Uuid}
+						id={item.Uuid}
 						parent={parent}
 						item={item}
 						move={move}

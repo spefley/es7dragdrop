@@ -73,7 +73,7 @@ const components = (state = [], action) => {
 			}
 			let dest = []
 			if(action.nodeId) {
-				dest = newState.filter(comp => comp.uuid == action.nodeId)[0].children
+				dest = newState.filter(comp => comp.Uuid == action.nodeId)[0].children
 			} else {
 			    //screen1
 			    dest = newState[0].children
@@ -82,7 +82,7 @@ const components = (state = [], action) => {
 			if (!action.afterId) {
 		      //removeNode(id, tree)
 		      state.map(component => {
-		        if(component.children.indexOf(action.id) != -1) {
+		        if(component.children && component.children.indexOf(action.id) != -1) {
                   component.children.splice(component.children.indexOf(action.id),1)
 		        }
 		      })
@@ -90,7 +90,7 @@ const components = (state = [], action) => {
 		    } else {
 		      const index = dest.indexOf(dest.filter(v => v === action.afterId).shift())
 		      state.map(component => {
-		        if(component.children.indexOf(action.id) != -1) {
+		        if(component.children && component.children.indexOf(action.id) != -1) {
                   component.children.splice(component.children.indexOf(action.id),1)
 		        }
 		      })

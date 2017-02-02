@@ -39,18 +39,18 @@ export default class Container extends Component {
   };
 
   moveItem(id, afterId, nodeId) {
-    moveComponent(id, afterId, nodeId);
+    this.props.moveComp(id, afterId, nodeId);
   }
 
   findItem(id, items) {
-    
+
     for (const node of items) {
       if (node.id === id) {
         return node
       }
 
-      if (node.children && node.children.length) {
-        const result = this.findItem(id, node.children)
+      if (node.$Components && node.$Components.length) {
+        const result = this.findItem(id, node.$Components)
         if (result) {
           return result
         }
@@ -100,35 +100,6 @@ export default class Container extends Component {
 
     return (
       <div>
-        <div style={{overflow: 'hidden', clear: 'both' }}>
-          <Dustbin droppedItems={dustbins}
-                   onDrop={(item) => this.props.handleDrop(item)}
-                   />        
-        </div>
-
-        <div style={{ overflow: 'hidden', clear: 'both' }}>
-          {boxes.map(({ name, type, id }, index) =>
-            <Box name={name}
-                 type={type}
-                 id={id}
-                 key={index} />
-          )}
-        </div>
-
-        <div style={{ overflow: 'hidden', clear: 'both', margin: '-.5rem'}}>
-          <div style={{ float: 'left' }}>
-            <SourceBox color={ItemTypes.PURPLE}>
-              <SourceBox color={ItemTypes.GREEN}>
-                <SourceBox color={ItemTypes.GREEN}/>
-                <SourceBox color={ItemTypes.PURPLE}/>
-              </SourceBox>
-              <SourceBox color={ItemTypes.PURPLE}>
-                <SourceBox color={ItemTypes.GREEN}/>
-              </SourceBox>
-            </SourceBox>
-          </div>
-        </div>
-
 
         <div>
           <Tree 

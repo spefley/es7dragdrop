@@ -11,7 +11,7 @@ const source = {
 		return {
 			id: props.id, 
 			parent: props.parent, 
-			items: props.item.$Components
+			items: (props.item.$Components ? props.item.$Components : [])
 		}
 	}, 
 
@@ -72,7 +72,7 @@ export default class Item extends Component {
 
 	render() {
 		const {connectDropTarget, connectDragPreview, connectDragSource, 
-			item: {id, $Name, $Components}, parent, move, find} = this.props
+			item: {Uuid, $Name, $Components}, parent, move, find} = this.props
 
 		let children = $Components
 		if ($Components === undefined) {
@@ -86,18 +86,28 @@ export default class Item extends Component {
 
 		const selectedComponent = this.props.selectedComponent 
 
+		//console.log(Uuid,$Name, $Components, parent)
+		let display = "block"
+		if(children.length != 0) {
+		  display = "block"
+		} else {
+		  display = "none"
+		}
+
 		return connectDropTarget(connectDragPreview(
 			<div>
 				{connectDragSource(
 					<div onClick={this.handleClick} style={{...style, backgroundColor }}>
 					{$Name}</div>
 				)}
+				<div style={{display}}>
 				<Tree 
-					parent={id}
+					parent={Uuid}
 					items={children}
 					move={move}
 					find={find}
 				/>
+				</div>
 			</div>
 		))
 	}
