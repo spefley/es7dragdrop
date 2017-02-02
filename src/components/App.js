@@ -50,6 +50,15 @@ const App = () => (
 		<div style={screens_panel_style}>
 			<ScreensContainer />
 		</div>
+
+		<div style={panel_style}>
+			<div style={headings}>Palette</div>
+			<AddComponentContainer />
+		</div>
+
+		<div style={panel_style}>
+			<DragContainer />
+		</div>
 		
 		<div style={panel_style}>
 			<div style={headings}>Components</div> 
@@ -61,14 +70,8 @@ const App = () => (
 			<PropertiesContainer />
 		</div>
 
-		<div style={panel_style}>
-			<div style={headings}>Palette</div>
-			<AddComponentContainer />
-		</div>
 
-		<div style={panel_style}>
-			<DragContainer />
-		</div>
+
 	</div>
 )
 
