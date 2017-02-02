@@ -73,6 +73,10 @@ export function deleteComponent(compId, selScreen, delScreen) {
   return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, selectedScreen: selScreen, deleteScreen: delScreen})
 }
 
+export function moveComponent(id, afterId, nodeId) {
+  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, nodeId})
+}
+
 // update component
 // id, property name, new property value
 
