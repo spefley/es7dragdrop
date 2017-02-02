@@ -8,6 +8,7 @@ import ItemTypes from './ItemTypes';
 import SourceBox from './ns_SourceBox';
 import Tree from './s_Tree';
 import { create_tree } from './ComponentTree'
+import { moveComponent } from '../actions'
 
 const style = {
   width: 400,
@@ -38,45 +39,11 @@ export default class Container extends Component {
   };
 
   moveItem(id, afterId, nodeId) {
-    if (id === afterId) {
-      return;
-    }
-
-    let {tree} = this.state 
-
-    const removeNode = (id, items) => {
-      for (const node of items) {
-        if (node.id === id) {
-          items.splice(items.indexOf(node), 1)
-          return
-        }
-
-        if (node.children && node.children.length) {
-          removeNode(id, node.children)
-        }
-      }
-    }
-
-    const item = {...this.findItem(id, tree)}
-    if (!item.id) {
-      return
-    }
-
-    const dest = nodeId ? this.findItem(nodeId, tree).children : tree
-
-    if (!afterId) {
-      removeNode(id, tree)
-      dest.push(item)
-    } else {
-      const index = dest.indexOf(dest.filter(v => v.id === afterId).shift())
-      removeNode(id, tree)
-      dest.splice(index, 0, item)
-    }
-
-    this.setState({tree})
+    moveComponent(id, afterId, nodeId);
   }
 
   findItem(id, items) {
+    
     for (const node of items) {
       if (node.id === id) {
         return node
@@ -121,6 +88,8 @@ export default class Container extends Component {
     //const { items } = this.state;
     const {tree} = this.state
 
+    const nestedTree = create_tree(this.props.components)
+
     const dustbins = this.props.dustbins
     
     const boxes = [
@@ -164,7 +133,7 @@ export default class Container extends Component {
         <div>
           <Tree 
             parent={null}
-            items={tree}
+            items={[nestedTree]}
             move={this.moveItem.bind(this)}
             find={this.findItem.bind(this)}
           />
