@@ -54,7 +54,7 @@ export default class ComponentNode extends Component {
 		return (
 			<div>
 				{this.props.subcomponents ? (<button onClick={this.handleToggle}>{this.state.isToggleOn ? '-' : '+'}</button>) : ("")}
-				<button onClick={this.handleClick} style={{backgroundColor:this.state.buttonColor}}> {this.state.name} </button>
+				<button onClick={this.handleClick} style={{backgroundColor:this.state.buttonColor}}> {this.props.name} </button>
 				<div style={{marginLeft:'1.5em'}}>{subComps}</div>
 			</div>
 		)
