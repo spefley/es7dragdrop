@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import simple_components from './simple_components';
-import ComponentNode from './ComponentNode.js'
+// import ComponentNode from './ComponentNode.js'
+import ComponentNodeContainer from '../containers/ComponentNodeContainer'
 import { create_tree } from './ComponentTree'
 
 /**
@@ -21,14 +22,12 @@ export default class AIComponents extends Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 	handleChange(id) {
-
 		return this.props.chooseComponent(id);
 	}
 
 	render () {
 
 		var componentsPanel = this;
-
 		var nestedTree = create_tree(this.props.components);
 
 		var name= nestedTree["$Name"];
@@ -36,7 +35,7 @@ export default class AIComponents extends Component {
 		var subs = nestedTree["$Components"];
 		return (
 			<div>
-				<ComponentNode name={name} id={id} subcomponents={subs} onClickFunction={componentsPanel.handleChange} selectedComponent={this.props.selectedComponent}/>
+				<ComponentNodeContainer name={name} id={id} subcomponents={subs} onClickFunction={componentsPanel.handleChange}/>
 			</div>
 		);
 	}

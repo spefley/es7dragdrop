@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import ComponentNodeContainer from '../containers/ComponentNodeContainer'
 
 /**
  * Component Node creates the nodes for the components to be shown in 
@@ -9,52 +10,42 @@ import React, { PropTypes, Component } from 'react';
  */
 
 
-// http://stackoverflow.com/questions/31413023/toggle-background-color-of-list-on-click-react-js
-
 export default class ComponentNode extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			name: this.props.name,
-			// type: this.props.type,
-			id: this.props.id,
-			isToggleOn: true,
-			buttonColor: 'default'
-		}
-		/*if (this.props.selectedComponent == this.props.id) {
-			console.log(true)
-			this.state.buttonColor = 'lightgreen'
-		} 
-		else this.state.buttonColor = 'default'
-*/
+
 		this.handleClick = this.handleClick.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
 	}
 
 	handleClick() {
-
-		this.props.onClickFunction(this.state.id)
+		this.props.onClickFunction(this.props.id)
 	};
 
 	handleToggle() {
-		this.setState(prevState => ({
-			isToggleOn: !prevState.isToggleOn
-		}));
+		this.props.toggleComp(this.props.id, this.props.components, this.props.selectedComponent);
 	}
 
 	render() {
+		var buttonColor;
+		if (this.props.selectedComponent == this.props.id) {
+			buttonColor = 'pink';
+		} else {
+			buttonColor = 'white';
+		}
+
 		// If component has subcomponents, add the subcomponents to the list
 		var subComps = "";
-		if (this.props.subcomponents && this.state.isToggleOn) {
+		if (this.props.subcomponents && this.props.toggled[this.props.id]) {
 			subComps = this.props.subcomponents.map(({$Name, Uuid, $Components}) =>
-				(<ComponentNode name={$Name} id={Uuid} subcomponents={$Components}onClickFunction={this.props.onClickFunction} selectedComponent={this.props.selectedComponent}/>)
+				(<ComponentNodeContainer name={$Name} id={Uuid} subcomponents={$Components}onClickFunction={this.props.onClickFunction}/>)
 			)
 		}
 
 		return (
 			<div>
-				{this.props.subcomponents ? (<button onClick={this.handleToggle}>{this.state.isToggleOn ? '-' : '+'}</button>) : ("")}
-				<button onClick={this.handleClick} style={{backgroundColor:this.state.buttonColor}}> {this.state.name} </button>
+				{this.props.subcomponents ? (<button onClick={this.handleToggle}>{this.props.toggled[this.props.id] ? '-' : '+'}</button>) : ("")}
+				<button onClick={this.handleClick} style={{backgroundColor:buttonColor}}> {this.props.name} </button>
 				<div style={{marginLeft:'1.5em'}}>{subComps}</div>
 			</div>
 		)

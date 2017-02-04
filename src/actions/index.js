@@ -34,14 +34,13 @@ export function addNewComponent(compType) {
   */
 
   var name = compType + nextId;
-  var compProperties = {componentType: compType, name:name, Uuid:nextId++, version:"1"};
+  var compProperties = {componentType: compType, name:name, Uuid:(nextId++).toString(), version:"1"};
   return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
 
 }
 
 export function updateComponent(componentId, propertyName, inputValue) {
   var info = {id: componentId, propertyName: propertyName, propertyInputValue: inputValue};
-  // console.log(info);
   return Object.assign({type: 'UPDATE_COMPONENT'}, info)
 }
 
@@ -49,5 +48,31 @@ export function selectComponent(componentId) {
   return Object.assign({type: 'SELECT_COMPONENT'}, {id: componentId})
 }
 
-// update component
-// id, property name, new property value
+export function toggleComponent(componentId, components, selected) {
+  var hasChild = hasChildSelected(componentId, components, selected)
+  return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, select:hasChild})
+}
+
+function findIdObj(id, comps) {
+  for (var i=0; i<comps.length; i++) {
+    if (comps[i].Uuid === id) {
+      return comps[i]
+    }
+  }
+  return null
+}
+
+function hasChildSelected(id, comps, selected) {
+  if (id === selected) {
+    return true;
+  }
+  var idObj = findIdObj(id, comps);
+  if (idObj && idObj.children) {
+    for (var j=0; j<idObj.children.length; j++) {
+      if (hasChildSelected(idObj.children[j], comps, selected)) {
+        return true
+      }
+    }
+  }
+  return false
+}

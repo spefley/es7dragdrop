@@ -35,23 +35,21 @@ export default class AddButton extends Component {
 
 	// Creates buttons for creating type of each component and adding to store
 		return (
-			<div style={{width: "600px", 'wordWrap': "break-word"}}>
-
-
+			<div>
 				{categories.map((categoryName) => 
 					<div>
-						<span>{categoryName}</span>
+						<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
 						<br/>
 						{componentCategories[categoryName].map((compType) =>
-							<button onClick={() => this.props.addComponent(compType)}>
-								{compType}
-							</button>
+							<div>
+                                <button onClick={() => this.props.addComponent(compType)}>
+    								{compType}
+    							</button>
+                                <br/>
+                            </div>
 						)}
 					</div>
 				)}
-
-				<br/>
-				<span>{stateString}</span>
 			</div>
 		);
 	}
