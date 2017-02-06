@@ -12,6 +12,15 @@ const store = createStore(reducer, {dustbins:[{ accepts: [ItemTypes.GLASS], last
         { accepts: [ItemTypes.PAPER], lastDroppedItem: null }]})
 */
 
+
+/** store contains:
+ * components: contains objects for each component in project - contains only 
+ * 			properties that are important or have been changed by user
+ * selectedComponent: the component that is currently selected - properties shown in 
+ *			Properties panel and component highlighted in Components Panel
+ * toggled: object mapping component ID to whether or not it is toggled
+ * 			true = subcomponents showing, false = subcomponents hidden
+ */
 const store = createStore(reducer, {dustbins: [], 
 	components: [
 		{"name":"Screen1", "componentType":"Form", "version":"20", "AboutScreen":"This is an App!","AppName":"Hello2","Title":"Screen1", "Uuid":"0","children": ["939054039"]},
@@ -24,7 +33,7 @@ const store = createStore(reducer, {dustbins: [],
 
 })
 
-
+// originally used for testing editor types - will be useful for related future tests
 /*Scomponents:
 	[
 		{"componentType":"Form","name":"Screen1","id":1000,"AboutScreen":"Hello! This is your first app!","AlignHorizontal":"1","AlignVertical":"1","AppName":"Hello","BackgroundColor":"&HFFFFFFFF","BackgroundImage":"","CloseScreenAnimation":"default","Icon":"","OpenScreenAnimation":"default","ScreenOrientation":"unspecified","Scrollable":"False","ShowStatusBar":"True","Sizing":"Fixed","Title":"","TitleVisible":"True","VersionCode":"1","VersionName":"1.0"}, 

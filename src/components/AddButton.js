@@ -1,11 +1,18 @@
-import React, { PropTypes, Component } from 'react';
-import simple_components from './simple_components'
+import React, { Component } from 'react';
+// import simple_components from './simple_components'
+
+/**
+ * AddButton creates the buttons for adding components to the project.
+ * Buttons are categorized by component categories - listed below.
+ * Clicking on a component adds an object (default) to the store, 
+ * and also makes it a subcomponent of Screen1.
+ */
 
 export default class AddButton extends Component {
   render() {
-    var currentState = this.props.components;
-    var stateString = JSON.stringify(currentState);
-    var allComps = simple_components.simpleComponents;
+    // var currentState = this.props.components;
+    // var stateString = JSON.stringify(currentState);
+    // var allComps = simple_components.simpleComponents;
 
     var componentCategories = {
     	"SENSORS":
@@ -34,23 +41,24 @@ export default class AddButton extends Component {
     var categories = ["USERINTERFACE", "LAYOUT", "SENSORS", "CONNECTIVITY", "ANIMATION", "MEDIA", "SOCIAL", "LEGOMINDSTORMS", "STORAGE", "EXPERIMENTAL", "INTERNAL"]
 
 	// Creates buttons for creating type of each component and adding to store
-		return (
-			<div>
-				{categories.map((categoryName) => 
-					<div>
-						<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
-						<br/>
-						{componentCategories[categoryName].map((compType) =>
-							<div>
-                                <button onClick={() => this.props.addComponent(compType)}>
-    								{compType}
-    							</button>
-                                <br/>
-                            </div>
-						)}
-					</div>
-				)}
-			</div>
-		);
+    // Buttons categorized above
+	return (
+		<div>
+			{categories.map((categoryName) => 
+				<div>
+					<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
+					<br/>
+					{componentCategories[categoryName].map((compType) =>
+						<div>
+                            <button onClick={() => this.props.addComponent(compType)}>
+								{compType}
+							</button>
+                            <br/>
+                        </div>
+					)}
+				</div>
+			)}
+		</div>
+	);
 	}
 }

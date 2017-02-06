@@ -1,7 +1,7 @@
 /** 
- * A REDUCER handling components in the store
- * actions: add a new component to the list of components,
- * or update a property in the specific component.
+ * A REDUCER handling components in the store, changed when:
+ * 			new component is added to store (Add Components panel, Components panel)
+ *			component property is updated with new input value (Properties panel)
  */
 
 
@@ -20,17 +20,13 @@ const component = (state = {}, action) => {
 			return newState
 
 		case 'UPDATE_COMPONENT':
+			// assume that state.id == action.id, bc of components function below
 			componentPropertyNames = Object.keys(state);
 			componentPropertyNames.forEach(function(property) {
 				newState[property] = state[property];
 			})
 			newState[action.propertyName] = action.propertyInputValue;
-			// console.log(newState)
 			return newState
-		// case 'UPDATE_COMPONENT':
-			// sent in: id, propertyName, value of Property to change to
-			// question: what if propertyName does not exist?
-			// assume that state.id == action.id, bc of components function below
 
 		default:
 			return state

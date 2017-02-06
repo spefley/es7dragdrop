@@ -3,8 +3,9 @@ import ComponentNode from '../components/ComponentNode'
 import { toggleComponent } from '../actions'
 
 /**
- * ComponentNodeContainer.js handles the Component nodes, i.e the components
- * that appear in the Components panel
+ * ComponentNodeContainer.js handles the Component nodes, 
+ * i.e the components that appear in the Components panel
+ * as well as the toggle buttons for the components.
  */
 
 const mapStateToProps = (state, ownProps) => ({

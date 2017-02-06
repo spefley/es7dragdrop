@@ -14,10 +14,10 @@ export class PropertyUI extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-    	value: this.props.value,
-    	propertyName: this.props.propertyName,
-    	componentId: this.props.componentId
-  	};
+	    	value: this.props.value,
+	    	propertyName: this.props.propertyName,
+	    	componentId: this.props.componentId
+  		};
 	}
 }
 
@@ -27,11 +27,13 @@ PropertyUI.propTypes = {
 	componentId: React.PropTypes.string
 };
 
+// Different from other inputs - uses checked, not value
 export class BooleanInput extends PropertyUI {
 	render() {
 		return <input type="checkbox" checked={(this.props.value==='True')} onChange={(event)=>this.props.onChangeFunction(this.state.componentId, this.state.propertyName, (event.target.checked ? "True" : "False") )}/>;
 	}
 }
+// Different from other inputs - uses checked, not value
 export class Visibility extends PropertyUI {
 	render() {
 		return <input type="checkbox" checked={(this.props.value === 'True')} onChange={(event)=>this.props.onChangeFunction(this.state.componentId, this.state.propertyName, (event.target.checked ? "True" : "False") )}/>;
@@ -78,6 +80,7 @@ export class Asset extends Component {
 		return defType;
 	}
 }
+// Used only by Form - Close/OpenScreenAnimation
 export class ScreenAnimation extends PropertyUI {
 	render() {
 		return (
@@ -92,6 +95,7 @@ export class ScreenAnimation extends PropertyUI {
 		);
 	}
 }
+// Used only by Form - ScreenOrientation
 export class ScreenOrientation extends PropertyUI {
 	render() {
 		return (
@@ -105,6 +109,7 @@ export class ScreenOrientation extends PropertyUI {
 		);
 	}
 }
+// Used only by Form - Sizing
 export class Sizing extends PropertyUI {
 	render() {
 		return (
@@ -120,6 +125,7 @@ export class NonNegativeInteger extends PropertyUI {
 		return <input type="number" min="0" step="1" value={this.props.value} onChange={(event)=>this.props.onChangeFunction(this.state.componentId, this.state.propertyName, event.target.value)}d/>;
 	}
 }
+// Used only by AccelerometerSensor - Sensitivity
 export class AccelerometerSensitivity extends PropertyUI {
 	render() {
 		return (
@@ -181,6 +187,7 @@ export class BluetoothClient extends Component {
 		return defType;
 	}
 }
+// Used only by Ev3ColorSensor - Mode
 export class LegoEv3ColorSensorMode extends PropertyUI {
 	render() {
 		return (
@@ -192,6 +199,7 @@ export class LegoEv3ColorSensorMode extends PropertyUI {
 		);
 	}
 }
+// Used by: Ev3ColorSensor, Ev3GyroSensor, Ev3TouchSensor, Ev3UltrasonicSensor
 export class LegoEv3SensorPort extends PropertyUI {
 	render() {
 		return (
@@ -204,6 +212,7 @@ export class LegoEv3SensorPort extends PropertyUI {
 		);
 	}
 }
+// Used only by Ev3GyroSensor - Mode
 export class LegoEV3GyroSensorMode extends PropertyUI {
 	render() {
 		return (
@@ -214,6 +223,7 @@ export class LegoEV3GyroSensorMode extends PropertyUI {
 		);
 	}
 }
+// Used only by Ev3UltrasonicSensor - Unit
 export class LegoEv3UltrasonicSensorMode extends PropertyUI {
 	render() {
 		return (
@@ -224,6 +234,8 @@ export class LegoEv3UltrasonicSensorMode extends PropertyUI {
 		);
 	}
 }
+// Used only by FirebaseDB - FirebaseURL
+// Has two inputs - text input and a checkbox
 export class FirbaseURL extends PropertyUI {
 	render() {
 		return (
@@ -234,6 +246,7 @@ export class FirbaseURL extends PropertyUI {
 		);
 	}
 }
+// Used only by LocationSensor - DistanceInterval
 export class SensorDistInterval extends PropertyUI {
 	render() {
 		return (
@@ -246,6 +259,7 @@ export class SensorDistInterval extends PropertyUI {
 		);
 	}
 }
+// Used only by LocationSensor - TimeInterval
 export class SensorTimeInterval extends PropertyUI {
 	render() {
 		return (
@@ -259,6 +273,7 @@ export class SensorTimeInterval extends PropertyUI {
 		);
 	}
 }
+// Used only by Notifier - NotifierLength
 export class ToastLength extends PropertyUI {
 	render() {
 		return (
@@ -269,11 +284,13 @@ export class ToastLength extends PropertyUI {
 		);
 	}
 }
+// Used only by NxtColorSensor - GenerateColor
 export class LegoNxtGeneratedColor extends Component {
 	render() {
 		return defType;
 	}
 }
+// Used only by NxtColorSensor - SensorPort
 export class LegoNxtSensorPort extends PropertyUI {
 	render() {
 		return (
@@ -286,6 +303,7 @@ export class LegoNxtSensorPort extends PropertyUI {
 		);
 	}
 }
+// Used only by TextToSpeech - Country
 export class Countries extends PropertyUI {
 	render() {
 		const allCountries = [
@@ -330,6 +348,7 @@ export class Countries extends PropertyUI {
 		);
 	}
 }
+// Used only by TextToSpeech - Language
 export class Languages extends PropertyUI {
 	render() {
 		const allLanguages = [
@@ -349,6 +368,7 @@ export class Languages extends PropertyUI {
 		);
 	}
 }
+// Used only by Texting - ReceivingEnabled
 export class TextReceiving extends PropertyUI {
 	render() {
 		return (
@@ -361,6 +381,7 @@ export class TextReceiving extends PropertyUI {
 	}
 }
 
+// exports set of editor types
 let EditorTypes = {TextArea, HorizontalAlignment, VerticalAlignment, StringInput, ColorInput, Asset, ScreenAnimation, ScreenOrientation, BooleanInput, Sizing, NonNegativeInteger, AccelerometerSensitivity, Float, Typeface, ButtonShape, TextAlignment, Visibility, NonNegativeFloat, BluetoothClient, LegoEv3ColorSensorMode, LegoEv3SensorPort, LegoEV3GyroSensorMode, LegoEv3UltrasonicSensorMode, FirbaseURL, SensorDistInterval, SensorTimeInterval, ToastLength, LegoNxtGeneratedColor, LegoNxtSensorPort, Countries, Languages, TextReceiving
 };
 export default EditorTypes;

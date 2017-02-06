@@ -3,7 +3,7 @@ import Properties from '../components/Properties'
 import { updateComponent } from '../actions'
 
 /**
- * Properties Container handles the Properties panel and links it to component
+ * Properties Container handles the Properties panel, links it to component
  * information in store, and manages updates to specific properties.
  */
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import simple_components from './simple_components';
 // import ComponentNode from './ComponentNode.js'
 import ComponentNodeContainer from '../containers/ComponentNodeContainer'
-import { create_tree } from './ComponentTree'
+import { create_tree } from './createComponentTree'
 
 /**
  * AIComponents creates the Components panel with the nested components
@@ -21,6 +21,9 @@ export default class AIComponents extends Component {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 	}
+
+	// when button in Components panel is clicked, "selectedComponent"
+	// is updated to the clicked component.
 	handleChange(id) {
 		return this.props.chooseComponent(id);
 	}
@@ -28,6 +31,8 @@ export default class AIComponents extends Component {
 	render () {
 
 		var componentsPanel = this;
+
+		// creates nested tree of components and their subcomponents
 		var nestedTree = create_tree(this.props.components);
 
 		var name= nestedTree["$Name"];

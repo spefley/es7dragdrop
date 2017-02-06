@@ -1,5 +1,7 @@
 /**
- * A REDUCER handling toggled in the store
+ * A REDUCER handling toggled in the store, changed when:
+ * 		component is toggled (Components panel)
+ *		new component is added - additional component to keep track of (Add Components panel)
  */
 
 const toggled = (state = {}, action) => {
@@ -10,7 +12,6 @@ const toggled = (state = {}, action) => {
 				newState[id] = state[id]
 			})
 			newState[action.id] = !newState[action.id]
-			// console.log(newState)
 			return newState
 		case 'ADD_NEW_COMPONENT':
 			newState = state;

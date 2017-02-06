@@ -11,15 +11,21 @@ export function create_tree(arr) {
 	var allObjs = {}
 	var proj = {};
 
+	// Create an object containing all component objects
+	// Keys are the component Ids, values are the objects
 	allObjs = create_all_objects(arr);
 
+	// for each component object
 	for (var i = 0; i < arr.length; i++) 
 	{
 		var entry = arr[i];
 		var entryId = entry["Uuid"];
+
+		// if the component has subcomponents, 
 		if (entry.hasOwnProperty("children") && entry["children"].length > 0)
 		{
 			allObjs[entryId]["$Components"] = []
+			// add the subcomponent objects to a property called "$Components" (array)
 			for (var k = 0; k < entry["children"].length; k++)
 			{
 				var childId = entry["children"][k];
@@ -31,6 +37,7 @@ export function create_tree(arr) {
 			}
 		}
 
+		// if the component is a Screen/Form, set that as the root component.
 		if (entry["componentType"] === "Form") proj = allObjs[entryId];
 	}
 
@@ -40,7 +47,7 @@ export function create_tree(arr) {
 
 /** 
  * Given the data array (of component objects), creates a dictionary
- * of JSON objects that will be used in Scheme file.
+ * of JSON objects, which contain name and id values.
  * Dictionary maps the component's unique ID to its JSON object
  */
 function create_all_objects(arr) {

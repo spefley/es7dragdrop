@@ -3,6 +3,7 @@ import DragContainer from '../containers/DragContainer'
 import PropertiesContainer from '../containers/PropertiesContainer'
 import ComponentsContainer from '../containers/ComponentsContainer'
 import AddButtonContainer from '../containers/AddButtonContainer'
+import ExportContainer from '../containers/ExportContainer'
 
 /**
  * Gives some style to the containers.
@@ -17,6 +18,9 @@ const panel_style = {
 	position: 'relative'
 }
 
+/** 
+ * Gives some style to the headings of each panel/container.
+ */
 const headings = {
 	...panel_style,
 	backgroundColor: 'turquoise',
@@ -26,8 +30,11 @@ const headings = {
 	float:'center'
 }
 
+/* Displays all the panels/containers.
+ */
 const App = () => (
 	<div>
+		<ExportContainer />
 		<div style={panel_style}>
 			<div style={headings}>Components</div> 
 			<ComponentsContainer />
