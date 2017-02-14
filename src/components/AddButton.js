@@ -10,8 +10,8 @@ import React, { Component } from 'react';
 
 export default class AddButton extends Component {
   render() {
-    // var currentState = this.props.components;
-    // var stateString = JSON.stringify(currentState);
+    var currentState = this.props.components;
+    var stateString = JSON.stringify(currentState);
     // var allComps = simple_components.simpleComponents;
 
     var componentCategories = {
@@ -40,17 +40,20 @@ export default class AddButton extends Component {
     }
     var categories = ["USERINTERFACE", "LAYOUT", "SENSORS", "CONNECTIVITY", "ANIMATION", "MEDIA", "SOCIAL", "LEGOMINDSTORMS", "STORAGE", "EXPERIMENTAL", "INTERNAL"]
 
+
+    var selectedScreen = this.props.selectedScreen;
 	// Creates buttons for creating type of each component and adding to store
     // Buttons categorized above
 	return (
 		<div>
+            <div style={{width:'500px', wordWrap:'break-word'}}>{stateString}</div>
 			{categories.map((categoryName) => 
 				<div>
 					<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
 					<br/>
 					{componentCategories[categoryName].map((compType) =>
 						<div>
-                            <button onClick={() => this.props.addComponent(compType)}>
+                            <button onClick={() => this.props.addComponent(compType, selectedScreen)}>
 								{compType}
 							</button>
                             <br/>

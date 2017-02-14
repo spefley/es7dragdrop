@@ -29,7 +29,10 @@ const store = createStore(reducer, {dustbins: [],
 		{"name":"Button1", "componentType":"Button", "version":"6", "FontSize":"16", "Text":"Text for Button1", "Uuid":"-496282275"},
 		{"name":"CheckBox1", "componentType":"CheckBox", "version":"2", "FontTypeface":"2", "Text":"Text for CheckBox1", "Uuid":"53776343"},
 		{"name":"PasswordTextBox1", "componentType":"PasswordTextBox", "version":"3", "TextAlignment":"1", "Uuid":"-1864349167"}
-	], selectedComponent: "0", toggled: {"0": true, "939054039": true, "1961822558": true,"-496282275": true, "53776343": true, "-1864349167":true}
+	], 
+	selectedComponent: "0", 
+	toggled: {"0": true, "939054039": true, "1961822558": true,"-496282275": true, "53776343": true, "-1864349167":true},
+	selectedScreen: "0"
 
 })
 

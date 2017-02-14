@@ -1,3 +1,5 @@
+import { getAllSubcomponents } from '../components/helperFunctions'
+
 /** 
  * A REDUCER handling components in the store, changed when:
  * 			new component is added to store (Add Components panel, Components panel)
@@ -13,7 +15,7 @@ const component = (state = {}, action) => {
 		case 'ADD_NEW_COMPONENT':
 			componentPropertyNames = Object.keys(action);
 			componentPropertyNames.forEach(function(property) {
-				if (property !== "type") {
+				if (property !== "type" && property !== "screenId") {
 			  		newState[property] = action[property];
 				}
 			});
@@ -38,15 +40,22 @@ const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
 			var updatedState = [...state, component(undefined, action)]
-			updatedState[0].children.push(action.Uuid)
+			if (action.screenId == null) {
+				return updatedState;
+			} else {
+				for (var i=0; i<updatedState.length; i++) {
+					if (updatedState[i].Uuid == action.screenId) {
+						updatedState[i].children = updatedState[i].children || [];
+						updatedState[i].children.push(action.Uuid);
+					}
+				}
+			}
 			return updatedState
-			// return [...state, component(undefined, action)]
 
-		// case 'UPDATE_COMPONENT':
-		// search through array
-		// find which one has id
-		// then update property
-
+		/** 
+		 * Searches through the list of components, finds the component with 
+		 * the given ID, and then updates the value of the specified property
+		 */
 		case 'UPDATE_COMPONENT':
 			var newState = [...state];
 			for (var i=0; i<state.length;i++) {
@@ -54,9 +63,30 @@ const components = (state = [], action) => {
 					newState[i] = component(state[i], action);					
 				}
 			}
-			// console.log(newState)
 			return newState
 
+		/** 
+		 * Deletes the specified screen and all subcomponents.
+		 * If screen is "Screen1", i.e. component id = "0", nothing happens
+		 */
+		case 'DELETE_COMPONENT':
+			if (action.id == "0") return state;
+			var subComps = getAllSubcomponents(action.id, state);
+			var newState = [];
+			state.forEach(function(component) {
+				var comp = Object.assign({}, component);
+				if (comp.children && comp.children.includes(action.id)) {
+					var i = comp.children.indexOf(action.id);
+					var children = comp.children.slice();
+					children.splice(i, 1);
+					comp.children = children;
+				}
+
+				if (!subComps.hasOwnProperty(comp.Uuid)) {
+					newState.push(comp)
+				}
+			})
+			return newState;
 		default:
 			return state
 	}

@@ -20,9 +20,9 @@ export function addToBin(item) {
 let nextId = 2;
 
 // new component added as child of Screen1 in Components and added to store
-export function addNewComponent(compType) {
+export function addNewComponent(compType, selectedScreen) {
   var name = compType + nextId;
-  var compProperties = {componentType: compType, name:name, Uuid:(nextId++).toString(), version:"1"};
+  var compProperties = {name:name, componentType: compType, Uuid:(nextId++).toString(), version:"1", screenId:selectedScreen};
   return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
 }
 
@@ -40,32 +40,13 @@ export function selectComponent(componentId) {
 // if toggled, subcomponents are shown/hidden, selectedComponents change if 
 // current selectedComponent is hidden due to toggled parent
 export function toggleComponent(componentId, components, selected) {
-  var hasChild = hasChildSelected(componentId, components, selected)
-  return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, select:hasChild})
+  return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, components: components})
 }
 
-// helper for toggleComponent - given the component ID, returns its corresponding object
-function findIdObj(id, comps) {
-  for (var i=0; i<comps.length; i++) {
-    if (comps[i].Uuid === id) {
-      return comps[i]
-    }
-  }
-  return null
+export function selectScreen(screenId) {
+  return Object.assign({type: 'SELECT_SCREEN'}, {id: screenId})
 }
 
-// helper for toggleComponent - checks if a component has a subcomponent that is selected.
-function hasChildSelected(id, comps, selected) {
-  if (id === selected) {
-    return true;
-  }
-  var idObj = findIdObj(id, comps);
-  if (idObj && idObj.children) {
-    for (var j=0; j<idObj.children.length; j++) {
-      if (hasChildSelected(idObj.children[j], comps, selected)) {
-        return true
-      }
-    }
-  }
-  return false
+export function deleteComponent(compId, components) {
+  return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, components:components})
 }

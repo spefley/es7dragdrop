@@ -7,7 +7,7 @@
  * an object of 1 screen, not an array of multiple screen objects)
  * @return proj (object): JSON object that will be in the Scheme file
  */
-export function create_tree(arr) {
+export function create_tree(arr, screenId) {
 	var allObjs = {}
 	var proj = {};
 
@@ -38,7 +38,7 @@ export function create_tree(arr) {
 		}
 
 		// if the component is a Screen/Form, set that as the root component.
-		if (entry["componentType"] === "Form") proj = allObjs[entryId];
+		if (entry["Uuid"] === screenId) proj = allObjs[entryId];
 	}
 
 	// console.log(proj)
@@ -64,4 +64,30 @@ function create_all_objects(arr) {
 		objs[id] = obj;
 	} 
 	return objs;
+}
+
+export function getAllSubcomponents(id, allComps, subComps={}) {
+  subComps[id] = true;
+  var idObj = findIdObj(id, allComps);
+  if (idObj && idObj.children) {
+    for (var j=0; j<idObj.children.length;j++) {
+      getAllSubcomponents(idObj.children[j], allComps, subComps);
+    }
+  }
+  return subComps;
+}
+
+// given the component ID, returns its corresponding object
+function findIdObj(id, comps) {
+  for (var i=0; i<comps.length; i++) {
+    if (comps[i].Uuid === id) {
+      return comps[i]
+    }
+  }
+  return null
+}
+
+// helper for toggleComponent - checks if a component has a subcomponent that is selected.
+export function hasChildSelected(id, components, selected) {
+  return getAllSubcomponents(id, components).hasOwnProperty(selected);
 }

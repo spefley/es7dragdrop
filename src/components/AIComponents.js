@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import simple_components from './simple_components';
 // import ComponentNode from './ComponentNode.js'
 import ComponentNodeContainer from '../containers/ComponentNodeContainer'
-import { create_tree } from './createComponentTree'
+import { create_tree } from './helperFunctions'
 
 /**
  * AIComponents creates the Components panel with the nested components
@@ -33,13 +33,13 @@ export default class AIComponents extends Component {
 		var componentsPanel = this;
 
 		// creates nested tree of components and their subcomponents
-		var nestedTree = create_tree(this.props.components);
-
+		var nestedTree = create_tree(this.props.components, this.props.selectedScreen);
 		var name= nestedTree["$Name"];
 		var id = nestedTree["Uuid"];
 		var subs = nestedTree["$Components"];
 		return (
 			<div>
+				<button onClick={() => componentsPanel.props.removeComponent(componentsPanel.props.selectedComponent, componentsPanel.props.components)}>Delete</button>
 				<ComponentNodeContainer name={name} id={id} subcomponents={subs} onClickFunction={componentsPanel.handleChange}/>
 			</div>
 		);

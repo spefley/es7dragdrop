@@ -4,6 +4,7 @@ import PropertiesContainer from '../containers/PropertiesContainer'
 import ComponentsContainer from '../containers/ComponentsContainer'
 import AddButtonContainer from '../containers/AddButtonContainer'
 import ExportContainer from '../containers/ExportContainer'
+import ScreensContainer from '../containers/ScreensContainer'
 
 /**
  * Gives some style to the containers.
@@ -11,11 +12,19 @@ import ExportContainer from '../containers/ExportContainer'
 const panel_style = {
 	border: '1px dashed black',
 	backgroundColor: 'lightblue',
-	padding: '0.5em 1em',
+	padding: '0.5em',
 	marginRight: '1.5em',
 	marginBottom: '1.5em',
 	float: 'left',
 	position: 'relative'
+}
+
+const screens_panel_style = {
+	...panel_style,
+	clear:'both',
+	display:'block',
+	width:'90%',
+	margin: '0.5em'
 }
 
 /** 
@@ -29,12 +38,19 @@ const headings = {
 	margin:'0.5em',
 	float:'center'
 }
-
+			// <div style={headings}>Screens</div> 
 /* Displays all the panels/containers.
  */
 const App = () => (
 	<div>
-		<ExportContainer />
+		<div style={screens_panel_style}>
+			<ExportContainer />
+		</div>
+
+		<div style={screens_panel_style}>
+			<ScreensContainer />
+		</div>
+		
 		<div style={panel_style}>
 			<div style={headings}>Components</div> 
 			<ComponentsContainer />

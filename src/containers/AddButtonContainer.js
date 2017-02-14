@@ -9,12 +9,12 @@ import { addNewComponent } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
   components: state.components,
-  compType: "Button"
+  selectedScreen: state.selectedScreen
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addComponent: (type) => {
-    dispatch(addNewComponent(type))
+  addComponent: (type, screenId) => {
+    dispatch(addNewComponent(type, screenId))
   }
 })
 
