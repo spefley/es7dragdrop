@@ -9,15 +9,14 @@ import { create_tree } from '../components/helperFunctions'
  */
 
 const mapStateToProps = (state, ownProps) => ({
-  components: state.components,
   selectedComponent: state.selectedComponent,
   selectedScreen: state.selectedScreen,
   projectTree: create_tree(state.components, state.selectedScreen)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  removeComponent: (id, components, selectedScreen) => {
-  	dispatch(deleteComponent(id, components, selectedScreen, false))
+  removeComponent: (id, selectedScreen, delScreen=false) => {
+  	dispatch(deleteComponent(id, selectedScreen, delScreen))
   }
 })
 

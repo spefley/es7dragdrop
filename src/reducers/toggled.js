@@ -1,4 +1,4 @@
-import { getAllSubcomponents } from '../components/helperFunctions'
+// import { getAllSubcomponents } from '../components/helperFunctions'
 
 /**
  * A REDUCER handling toggled in the store, changed when:
@@ -20,10 +20,8 @@ const toggled = (state = {}, action) => {
 			return newState;
 		case 'DELETE_COMPONENT':
 			if (action.id != "0" && !(action.id == action.selectedScreen && !action.deleteScreen)) {
-				var subComps = getAllSubcomponents(action.id, action.components);
-				for (var i=0; i<Object.keys(subComps).length; i++) {
-					delete newState[Object.keys(subComps)[i]];
-				}
+				newState = Object.assign({}, state);
+				delete newState[action.id]
 				return newState;
 			}
 			else return state

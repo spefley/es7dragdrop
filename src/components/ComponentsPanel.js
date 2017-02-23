@@ -23,7 +23,7 @@ export default class ComponentsPanel extends Component {
 		
 		return (
 			<div>
-				<button onClick={() => thisComponent.props.removeComponent(thisComponent.props.selectedComponent, thisComponent.props.components, thisComponent.props.selectedScreen)}>Delete</button>
+				<button onClick={() => thisComponent.props.removeComponent(thisComponent.props.selectedComponent, thisComponent.props.selectedScreen)}>Delete</button>
 
 				<ComponentNodeContainer name={name} id={id} subcomponents={subs}/>
 			</div>

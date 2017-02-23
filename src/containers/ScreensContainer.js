@@ -18,7 +18,6 @@ function getAllScreens(state) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  components: state.components,
   selectedScreen: state.selectedScreen,
   screens: getAllScreens(state)
 })
@@ -30,8 +29,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   chooseScreen: (screenId) => {
       dispatch(selectScreen(screenId))
     },
-  removeScreen: (screenId, components) => {
-    dispatch(deleteComponent(screenId, components, screenId, true))
+  removeScreen: (screenId, delScreen=true) => {
+    dispatch(deleteComponent(screenId, screenId, delScreen))
   }
 })
 
