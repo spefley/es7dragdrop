@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
-import AIComponents from '../components/AIComponents'
-import { selectComponent, deleteComponent } from '../actions'
+import ComponentsPanel from '../components/ComponentsPanel'
+import { deleteComponent } from '../actions'
+import { create_tree } from '../components/helperFunctions'
 
 /**
  * ComponentsContainer.js handles the Components panel in AI, as well as 
@@ -10,21 +11,19 @@ import { selectComponent, deleteComponent } from '../actions'
 const mapStateToProps = (state, ownProps) => ({
   components: state.components,
   selectedComponent: state.selectedComponent,
-  selectedScreen: state.selectedScreen
+  selectedScreen: state.selectedScreen,
+  projectTree: create_tree(state.components, state.selectedScreen)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  chooseComponent: (componentId) => {
-    dispatch(selectComponent(componentId))
-  },
-  removeComponent: (id, components) => {
-  	dispatch(deleteComponent(id, components))
+  removeComponent: (id, components, selectedScreen) => {
+  	dispatch(deleteComponent(id, components, selectedScreen, false))
   }
 })
 
 const ComponentsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AIComponents)
+)(ComponentsPanel)
 
 export default ComponentsContainer

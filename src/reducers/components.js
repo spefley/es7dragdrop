@@ -70,7 +70,7 @@ const components = (state = [], action) => {
 		 * If screen is "Screen1", i.e. component id = "0", nothing happens
 		 */
 		case 'DELETE_COMPONENT':
-			if (action.id == "0") return state;
+			if (action.id == "0" ||(action.id == action.selectedScreen && !action.deleteScreen)) return state;
 			var subComps = getAllSubcomponents(action.id, state);
 			var newState = [];
 			state.forEach(function(component) {

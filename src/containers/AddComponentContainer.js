@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import AddButton from '../components/AddButton'
+import AddComponent from '../components/AddComponent'
 import { addNewComponent } from '../actions'
 
 /**
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const AddButtonContainer = connect(
+const AddComponentContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddButton)
+)(AddComponent)
 
-export default AddButtonContainer
+export default AddComponentContainer

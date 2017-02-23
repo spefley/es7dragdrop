@@ -7,10 +7,22 @@ import { updateComponent } from '../actions'
  * information in store, and manages updates to specific properties.
  */
 
+function createSelectedComponentObject(state) {
+	var selectComponentObj = {};
+	for (var i=0; i<state.components.length; i++) {
+		if (state.components[i].Uuid === state.selectedComponent) {
+			selectComponentObj = state.components[i];
+			break;
+		}
+		else {
+			selectComponentObj = state.components[0];
+		}
+	}
+	return selectComponentObj;
+}
+
 const mapStateToProps = (state, ownProps) => ({
-  // selectedComponent: state.components[0]
-  selectedComponent: state.selectedComponent,
-  components: state.components
+	selectedComponent: createSelectedComponentObject(state)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -18,7 +30,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(updateComponent(componentId, propertyName, newValue))
   }
 })
-
 
 // selectedComponent and updateComponentProperty are props that Properties.js receives
 const PropertiesContainer = connect(

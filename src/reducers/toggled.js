@@ -19,7 +19,7 @@ const toggled = (state = {}, action) => {
 			newState[action.Uuid] = true;
 			return newState;
 		case 'DELETE_COMPONENT':
-			if (action.id != "0") {
+			if (action.id != "0" && !(action.id == action.selectedScreen && !action.deleteScreen)) {
 				var subComps = getAllSubcomponents(action.id, action.components);
 				for (var i=0; i<Object.keys(subComps).length; i++) {
 					delete newState[Object.keys(subComps)[i]];

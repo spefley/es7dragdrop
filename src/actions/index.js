@@ -39,14 +39,14 @@ export function selectComponent(componentId) {
 
 // if toggled, subcomponents are shown/hidden, selectedComponents change if 
 // current selectedComponent is hidden due to toggled parent
-export function toggleComponent(componentId, components, selected) {
-  return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, components: components})
+export function toggleComponent(componentId, hasSelectedSubcomp) {
+  return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, hasSelectedSubcomp:hasSelectedSubcomp})
 }
 
 export function selectScreen(screenId) {
   return Object.assign({type: 'SELECT_SCREEN'}, {id: screenId})
 }
 
-export function deleteComponent(compId, components) {
-  return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, components:components})
+export function deleteComponent(compId, components, selScreen, delScreen) {
+  return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, components:components, selectedScreen: selScreen, deleteScreen: delScreen})
 }

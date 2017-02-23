@@ -2,7 +2,7 @@ import React from 'react'
 import DragContainer from '../containers/DragContainer'
 import PropertiesContainer from '../containers/PropertiesContainer'
 import ComponentsContainer from '../containers/ComponentsContainer'
-import AddButtonContainer from '../containers/AddButtonContainer'
+import AddComponentContainer from '../containers/AddComponentContainer'
 import ExportContainer from '../containers/ExportContainer'
 import ScreensContainer from '../containers/ScreensContainer'
 
@@ -63,7 +63,7 @@ const App = () => (
 
 		<div style={panel_style}>
 			<div style={headings}>Palette</div>
-			<AddButtonContainer />
+			<AddComponentContainer />
 		</div>
 
 		<div style={panel_style}>

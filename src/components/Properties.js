@@ -10,30 +10,9 @@ import EditorTypes from './EditorTypes';
  */
 
 export default class Properties extends Component {
-	constructor(props) {
-		super(props);
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	// If user input occurs for specific property, property value is updated
-	// for the component in the store
-	handleChange(id, property, value) {
-		return this.props.updateComponentProperty(id, property, value);
-	}
-
 	render() {
-		// this.props.selectedComponent is an id - given the id, find the component
-		// object from the state.components and store it as selectedComponent
-		var selectedComponent = {};
-		for (var k=0; k<this.props.components.length;k++) {
-			if (this.props.components[k].Uuid === this.props.selectedComponent) {
-				selectedComponent = this.props.components[k];
-				break;
-			}
-			else {
-				selectedComponent = this.props.components[0]
-			}
-		}
+		var thisComponent = this;
+		var selectedComponent = this.props.selectedComponent;
 
 		// Get the list of property objects for the selected component
 		// Use simple_components to get list
@@ -44,7 +23,6 @@ export default class Properties extends Component {
 				componentProperties = allComponents[j]["properties"];
 			}
 		}
-		var propertiesComponent = this;
 
 		// Object where key is name of editor type and value is its React Class
 		var typeToHTML = {
@@ -85,10 +63,10 @@ export default class Properties extends Component {
 		// Function that returns the HTML for the specified editor type
 		// HTML includes function that allows update of specific property
 		// If editor type is not here, return null
-		var getHTML = function(editorType, inputValue, componentId, propertyName) {
+		var getEditorTypeHTML = function(editorType, inputValue, componentId, propertyName) {
 			var EdType = typeToHTML[editorType];
 			if (EdType) {
-				return <EdType value={inputValue} componentId={componentId} propertyName={propertyName} onChangeFunction={propertiesComponent.handleChange} />
+				return <EdType value={inputValue} componentId={componentId} propertyName={propertyName} onChangeFunction={thisComponent.props.updateComponentProperty} />
 			}
 			else return null;
 		}
@@ -100,10 +78,10 @@ export default class Properties extends Component {
 
 			// set property value to most updated value, else set it to default value
 			if (selectedComponent[compPropty.name]) {
-				var editorTypeHTML = getHTML(compPropty.editorType, selectedComponent[compPropty.name], selectedComponent.Uuid, compPropty.name)
+				var editorTypeHTML = getEditorTypeHTML(compPropty.editorType, selectedComponent[compPropty.name], selectedComponent.Uuid, compPropty.name)
 			}
 			else {
-				editorTypeHTML = getHTML(compPropty.editorType, compPropty.defaultValue, selectedComponent.Uuid, compPropty.name)
+				editorTypeHTML = getEditorTypeHTML(compPropty.editorType, compPropty.defaultValue, selectedComponent.Uuid, compPropty.name)
 			}
 
 			// if editor type returns valid HTML, add property object to array

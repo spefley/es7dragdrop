@@ -1,22 +1,30 @@
 import { connect } from 'react-redux'
 import ComponentNode from '../components/ComponentNode'
-import { toggleComponent } from '../actions'
-
+import { toggleComponent, selectComponent } from '../actions'
+import { hasChildSelected } from '../components/helperFunctions'
 /**
  * ComponentNodeContainer.js handles the Component nodes, 
  * i.e the components that appear in the Components panel
  * as well as the toggle buttons for the components.
  */
 
-const mapStateToProps = (state, ownProps) => ({
-  selectedComponent: state.selectedComponent,
-  toggled: state.toggled,
-  components: state.components
-})
+const mapStateToProps = (state, ownProps) => {
+	var isSubcompSelected = hasChildSelected(ownProps.id, state.components, state.selectedComponent);
+
+	return ({
+	  selectedComponent: state.selectedComponent,
+	  toggled: state.toggled,
+	  hasSubcompSelected: isSubcompSelected
+	})
+
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  toggleComp: (componentId, components, selected) => {
-    dispatch(toggleComponent(componentId, components, selected))
+  toggleComp: (componentId, hasSelectedComp) => {
+    dispatch(toggleComponent(componentId, hasSelectedComp))
+  },
+  chooseComponent: (componentId) => {
+    dispatch(selectComponent(componentId))
   }
 })
 

@@ -11,7 +11,7 @@ const selectedComponent = (state = "", action) => {
 		case 'SELECT_COMPONENT':
 			return action.id
 		case 'TOGGLE_COMPONENT':
-			if (hasChildSelected(action.id, action.components, state)) return action.id;
+			if (action.hasSelectedSubcomp) return action.id;
 			else return state;
 		case 'ADD_NEW_COMPONENT':
 			if (action.componentType === "Form") return action.Uuid;
@@ -19,7 +19,8 @@ const selectedComponent = (state = "", action) => {
 		case 'SELECT_SCREEN':
 			return action.id
 		case 'DELETE_COMPONENT':
-			return "0";
+			if (action.deleteScreen) return "0";
+			else return action.selectedScreen;
 		default:
 			return state
 	}

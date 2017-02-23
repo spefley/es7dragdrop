@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 // import simple_components from './simple_components'
 
 /**
- * AddButton creates the buttons for adding components to the project.
+ * AddComponent creates the buttons for adding components to the project.
  * Buttons are categorized by component categories - listed below.
  * Clicking on a component adds an object (default) to the store, 
  * and also makes it a subcomponent of Screen1.
  */
 
-export default class AddButton extends Component {
+export default class AddComponent extends Component {
   render() {
     var currentState = this.props.components;
     var stateString = JSON.stringify(currentState);
