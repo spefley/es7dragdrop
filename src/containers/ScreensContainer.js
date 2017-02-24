@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import Screens from '../components/Screens'
 import { addNewComponent, selectScreen, deleteComponent } from '../actions'
-import { create_tree, getAllSubcomponents } from '../components/helperFunctions'
 
 /**
  * ScreensContainer handles multiple screens and clicking between screens.

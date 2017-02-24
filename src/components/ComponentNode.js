@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import ComponentNodeContainer from '../containers/ComponentNodeContainer'
 
 /**
@@ -20,7 +20,7 @@ export default class ComponentNode extends Component {
 	render() {
 		// Set button color - pink if selected, white otherwise
 		var buttonColor;
-		if (this.props.selectedComponent == this.props.id) buttonColor = 'pink'
+		if (this.props.selectedComponent === this.props.id) buttonColor = 'pink'
 		else buttonColor = 'white'
 
 		// If component has subcomponents, let subComps store the subcomponents' HTMLs

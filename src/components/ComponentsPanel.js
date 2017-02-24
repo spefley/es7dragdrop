@@ -20,10 +20,11 @@ export default class ComponentsPanel extends Component {
 		var name= nestedTree["$Name"];
 		var id = nestedTree["Uuid"];
 		var subs = nestedTree["$Components"];
-		
+		var disableDelete = (this.props.selectedComponent === this.props.selectedScreen);
+
 		return (
 			<div>
-				<button onClick={() => thisComponent.props.removeComponent(thisComponent.props.selectedComponent, thisComponent.props.selectedScreen)}>Delete</button>
+				<button onClick={() => thisComponent.props.removeComponent(thisComponent.props.selectedComponent, thisComponent.props.selectedScreen)} disabled={disableDelete}>Delete</button>
 
 				<ComponentNodeContainer name={name} id={id} subcomponents={subs}/>
 			</div>

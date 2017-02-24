@@ -1,4 +1,3 @@
-import { hasChildSelected } from '../components/helperFunctions'
 
 /**
  * A REDUCER handling selectedComponent in the store, changed when:

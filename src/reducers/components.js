@@ -40,11 +40,11 @@ const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
 			var updatedState = [...state, component(undefined, action)]
-			if (action.screenId == null) {
+			if (action.screenId === null) {
 				return updatedState;
 			} else {
 				for (var i=0; i<updatedState.length; i++) {
-					if (updatedState[i].Uuid == action.screenId) {
+					if (updatedState[i].Uuid === action.screenId) {
 						updatedState[i].children = updatedState[i].children || [];
 						updatedState[i].children.push(action.Uuid);
 					}
@@ -70,15 +70,15 @@ const components = (state = [], action) => {
 		 * If screen is "Screen1", i.e. component id = "0", nothing happens
 		 */
 		case 'DELETE_COMPONENT':
-			if (action.id == "0" ||(action.id == action.selectedScreen && !action.deleteScreen)) return state;
+			if (action.id === "0" ||(action.id === action.selectedScreen && !action.deleteScreen)) return state;
 			var subComps = getAllSubcomponents(action.id, state);
 			var newState = [];
 			state.forEach(function(component) {
 				var comp = Object.assign({}, component);
 				if (comp.children && comp.children.includes(action.id)) {
-					var i = comp.children.indexOf(action.id);
+					var index = comp.children.indexOf(action.id);
 					var children = comp.children.slice();
-					children.splice(i, 1);
+					children.splice(index, 1);
 					comp.children = children;
 				}
 

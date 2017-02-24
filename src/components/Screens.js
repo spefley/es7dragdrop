@@ -24,7 +24,7 @@ export default class Screens extends Component {
 				<button onClick={() => this.props.removeScreen(thisComponent.props.selectedScreen)}>Remove Screen</button>
 				<br/>
 				{screens.map(({name, Uuid}) => {
-					var tabColor = this.props.selectedScreen == Uuid ? 'pink' : 'lightyellow';
+					var tabColor = this.props.selectedScreen === Uuid ? 'pink' : 'lightyellow';
 					
 					return (
 					<div style={{...screen_tab_style, backgroundColor:tabColor}}>
