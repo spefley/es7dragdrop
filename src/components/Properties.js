@@ -101,7 +101,7 @@ export default class Properties extends Component {
 				<span style={{fontWeight:'bold'}}>{selectedComponent.name}</span>
 				<hr/>
 				{editorTypeArr.map(({name, editorType}) =>
-					<span> {name} 
+					<span key={name}> {name} 
 						<br/>
 						{editorType}
 					<br/>

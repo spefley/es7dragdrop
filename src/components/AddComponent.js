@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { DragSource } from 'react-dnd';
+import { DragSourceTypes } from '../constants/DragSourceTypes';
+import AIComponent from './AIComponent';
 // import simple_components from './simple_components'
 
 /**
@@ -52,16 +55,19 @@ export default class AddComponent extends Component {
 					<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
 					<br/>
 					{componentCategories[categoryName].map((compType) =>
-						<div>
-                            <button onClick={() => this.props.addComponent(compType, selectedScreen)}>
-								{compType}
-							</button>
-                            <br/>
-                        </div>
+						<AIComponent
+							compType={compType}
+							onClick={this.onClick}
+							key={compType}
+						/>
 					)}
 				</div>
 			)}
 		</div>
 	);
+	}
+
+	onClick = (compType) => {
+		this.props.addComponent(compType);
 	}
 }
