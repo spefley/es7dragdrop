@@ -8,7 +8,8 @@
  * selectComponent - updates which component is selected
  * toggleComponent - updates component if toggled
  */
-let nextId = 0
+let nextId = 2;
+
 
 export function addToBin(item) {
 	return {
@@ -19,26 +20,6 @@ export function addToBin(item) {
 	}
 }
 
-
-let nextId = 2;
-
-export function addNewComponent(compType) {
-  var allComps = simple_components.simpleComponents;
-  
-  for (var i=0; i<allComps.length; i++) {
-  	if (allComps[i].name === "Button") {
-  		var allProperties = allComps[i].properties;
-  	}
-  }
-
-  var compProperties = {componentType: "Button", name:"Screen1", id:nextId++};
-  for (var j=0; j<allProperties.length; j++) {
-  	compProperties[allProperties[j].name] = allProperties[j].defaultValue;
-  }
-  // var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
-  
-  return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
-}
 
 // new component added as child of Screen1 in Components and added to store
 export function addNewComponent(compType, selectedScreen) {

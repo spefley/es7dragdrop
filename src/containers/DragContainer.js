@@ -5,7 +5,8 @@ import { addToBin, moveComponent } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
   dustbins: state.dustbins,
-  components: state.components
+  components: state.components,
+  selectedScreen: state.selectedScreen
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -7,7 +7,7 @@ import ItemTypes from './ItemTypes';
 
 import SourceBox from './ns_SourceBox';
 import Tree from './s_Tree';
-import { create_tree } from './ComponentTree'
+import { create_tree } from './helperFunctions'
 import { moveComponent } from '../actions'
 
 const style = {
@@ -20,7 +20,7 @@ export default class Container extends Component {
   constructor(props) {
     super(props);
     
-    var nestedTree = create_tree(this.props.components);
+    var nestedTree = create_tree(this.props.components,"0");
 
     this.state = { tree: [
       {id: 1, title: 'wow', children: [
@@ -88,7 +88,7 @@ export default class Container extends Component {
     //const { items } = this.state;
     const {tree} = this.state
 
-    const nestedTree = create_tree(this.props.components)
+    const nestedTree = create_tree(this.props.components,this.props.selectedScreen)
 
     const dustbins = this.props.dustbins
     
