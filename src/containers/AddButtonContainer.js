@@ -8,8 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addComponent: (type) => {
-    dispatch(addNewComponent(type))
+  addComponent: (type, afterId) => {
+    dispatch(addNewComponent(type, afterId))
   }
 })
 

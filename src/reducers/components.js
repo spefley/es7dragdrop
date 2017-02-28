@@ -1,3 +1,5 @@
+import { insertUuidIntoState } from './utils/updateStateUtils';
+
 /** 
  * A REDUCER handling components in the store
  * actions: add a new component to the list of components,
@@ -41,8 +43,7 @@ const component = (state = {}, action) => {
 const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
-			var updatedState = [...state, component(undefined, action)]
-			updatedState[0].children.push(action.Uuid)
+			var updatedState = insertUuidIntoState([...state, component(undefined, action)], action, false);
 			return updatedState
 			// return [...state, component(undefined, action)]
 

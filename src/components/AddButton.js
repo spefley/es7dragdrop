@@ -43,7 +43,8 @@ export default class AddButton extends Component {
 						{componentCategories[categoryName].map((compType) =>
 							<Button
 								compType={compType}
-								onClick={this.onClick}
+								onClick={this.props.addComponent}
+								onDrop={this.props.addComponent}
 								key={compType}
 							/>
 						)}
@@ -54,9 +55,5 @@ export default class AddButton extends Component {
 				
 			</div>
 		);
-	}
-
-	onClick = (compType) => {
-		this.props.addComponent(compType);
 	}
 }
