@@ -20,12 +20,10 @@ export function addToBin(item) {
 	}
 }
 
-
-// new component added as child of Screen1 in Components and added to store
-export function addNewComponent(compType, selectedScreen) {
+export function addNewComponent(compType, selectedScreen, afterId) {
   var name = compType + nextId;
   var compProperties = {name:name, componentType: compType, Uuid:(nextId++).toString(), version:"1", screenId:selectedScreen};
-  return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId })
 }
 
 // updates specific property value to input value for a component - Properties Panel

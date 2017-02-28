@@ -37,50 +37,6 @@ export default class Container extends Component {
     }
   };
 
-  moveItem(id, afterId, nodeId) {
-    this.props.moveComp(id, afterId, nodeId);
-  }
-
-  findItem(id, items) {
-
-    for (const node of items) {
-      if (node.id === id) {
-        return node
-      }
-
-      if (node.$Components && node.$Components.length) {
-        const result = this.findItem(id, node.$Components)
-        if (result) {
-          return result
-        }
-      }
-    }
-
-    return false
-  }
-
-
-  /*
-  constructor(props) {
-    super(props);
-    this.moveItem = this.moveItem.bind(this);
-    this.state = { items: [{id: 1, text: 'apple', children: [{id: 2, text: 'orange'}, 
-                           {id: 3, text: 'banana'}, {id: 4, text: 'grapes'}]},
-                           {id: 5, text: 'berries'}, {id: 6, text: 'peach'}, 
-                           {id: 7, text: 'kiwi'}, {id: 8, text: 'raspberry'}]
-    };
-  }
-
-  moveItem(dragIndex, hoverIndex) {
-    const {items} = this.state;
-    const dragItem = items[dragIndex];
-
-    this.setState(update(this.state, {
-      items: {
-        $splice: [ [dragIndex, 1], [hoverIndex, 0, dragItem], ],
-      },
-    }));
-  } */
 
   render() {
 
@@ -99,29 +55,37 @@ export default class Container extends Component {
 
     return (
       <div>
-
         <div>
           <Tree 
             parent={null}
             items={[nestedTree]}
-            move={this.moveItem.bind(this)}
-            find={this.findItem.bind(this)}
+            move={this.moveItem}
+            find={this.findItem}
           />
         </div>
-
       </div>
     );
   }
-}
 
-/* 
-        <div style={style}>
-          {items.map((item, i) => (
-            <SourceBox key={item.id} index={i} id={item.id} text={item.text} moveItem={this.moveItem}>
-              <SourceBox key={item.id} index={i} id={item.id} text={item.text} moveItem={this.moveItem}>
-                <SourceBox key={item.id} index={i} id={item.id} text={item.text} moveItem={this.moveItem}/>
-              </SourceBox>
-            </SourceBox>
-          ))}
-        </div>
-*/
+  moveItem = (id, afterId, nodeId) => {
+    this.props.moveComp(id, afterId, nodeId);
+  }
+
+  findItem = (id, items) => {
+
+    for (const node of items) {
+      if (node.id === id) {
+        return node
+      }
+
+      if (node.$Components && node.$Components.length) {
+        const result = this.findItem(id, node.$Components)
+        if (result) {
+          return result
+        }
+      }
+    }
+
+    return false
+  }
+}
