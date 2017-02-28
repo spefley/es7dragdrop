@@ -17,25 +17,10 @@ export function addToBin(item) {
 	}
 }
 
-export function addNewComponent(compType) {
-  /*
-    var allComps = simple_components.simpleComponents;
-    
-    for (var i=0; i<allComps.length; i++) {
-    	if (allComps[i].name === "Button") {
-    		var allProperties = allComps[i].properties;
-    	}
-    }
-
-    for (var j=0; j<allProperties.length; j++) {
-      compProperties[allProperties[j].name] = allProperties[j].defaultValue;
-    }
-    var screen = {componentType: "Form", name:"Screen1", aboutScreen:"asdf", id:nextId++};
-  */
-
+export function addNewComponent(compType, afterId) {
   var name = compType + nextId;
   var compProperties = {componentType: compType, name:name, Uuid:nextId++, version:"1"};
-  return Object.assign({type: 'ADD_NEW_COMPONENT'}, compProperties)
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId })
 
 }
 

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import Tree from './s_Tree';
+import { DragSourceTypes } from '../constants/DragSourceTypes';
 
 const style = {
 	padding: '0.5em'
@@ -21,11 +22,12 @@ const source = {
 }
 
 const target = {
-	canDrop() {
-		return false
+	canDrop(props) {
+		return true; 
 	},
 
 	hover(props, monitor) {
+		/*
 		const {id: draggedId} = monitor.getItem()
 		const {id: overId} = props 
 
@@ -38,10 +40,20 @@ const target = {
 		}
 
 		props.move(draggedId, overId, props.parent)
+		*/
+	},
+
+	drop(props, monitor, component) {
+		if (monitor.didDrop()) {
+			return;
+		}
+		console.log(props.item.Uuid, props, component);
+		// check if id is already in the list of items, if not, insert, otherwise, move
+		return {uuid: props.item.Uuid};
 	}
 }
 
-@DropTarget('ITEM', target, connect => ({
+@DropTarget(DragSourceTypes.COMPONENT, target, connect => ({
 	connectDropTarget: connect.dropTarget()
 }))
 @DragSource('ITEM', source, (connect, monitor) => ({

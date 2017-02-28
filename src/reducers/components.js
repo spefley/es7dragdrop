@@ -11,10 +11,10 @@ const component = (state = {}, action) => {
 	var newState = {}
 	switch (action.type) {
 		case 'ADD_NEW_COMPONENT':
-			componentPropertyNames = Object.keys(action);
+			componentPropertyNames = Object.keys(action.compProperties);
 			componentPropertyNames.forEach(function(property) {
 				if (property !== "type") {
-			  		newState[property] = action[property];
+			  		newState[property] = action.compProperties[property];
 				}
 			});
 			return newState

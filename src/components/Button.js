@@ -2,8 +2,9 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
 import { DragSourceTypes } from '../constants/DragSourceTypes';
+import { addNewComponent } from '../actions/index';
 
-@DragSource(DragSourceTypes.COMPONENT, {beginDrag}, collect)
+@DragSource(DragSourceTypes.COMPONENT, {beginDrag, endDrag}, collect)
 export default class Button extends Component {
 	static propTypes = {
         compType: PropTypes.string.isRequired,
@@ -29,6 +30,12 @@ function beginDrag(props, monitor, component) {
 	return {
 		id: props.id
 	};
+};
+
+function endDrag(props, monitor, component) {
+    const dropTargetUuid = monitor.getDropResult().uuid;
+    //TODO (spefley) improve LOL 
+    addNewComponent(props.compType, dropTargetUuid);
 };
 
 function collect(connect, monitor) {
