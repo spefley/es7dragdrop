@@ -58,6 +58,7 @@ export default class AddComponent extends Component {
 						<AIComponent
 							compType={compType}
 							onClick={this.onClick}
+							onDrop={this.props.addComponent}
 							key={compType}
 						/>
 					)}

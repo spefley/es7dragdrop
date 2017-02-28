@@ -9,6 +9,7 @@ export default class AIComponent extends Component {
 	static propTypes = {
         compType: PropTypes.string.isRequired,
         onClick: PropTypes.func.isRequired,
+        onDrop: PropTypes.func.isRequired,
 		connectDragSource: PropTypes.func.isRequired,
 	} ;
 
@@ -35,7 +36,10 @@ function beginDrag(props, monitor, component) {
 function endDrag(props, monitor, component) {
     const dropTargetUuid = monitor.getDropResult().uuid;
     //TODO (spefley) improve LOL 
-    addNewComponent(props.compType, dropTargetUuid);
+    //debugger;
+
+    //component.props.onClick(props.compType);
+    component.props.onDrop(props.compType, dropTargetUuid);
 };
 
 function collect(connect, monitor) {

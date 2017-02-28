@@ -1,4 +1,5 @@
 import { getAllSubcomponents } from '../components/helperFunctions'
+import { insertUuidIntoState } from './utils/updateStateUtils';
 
 /** 
  * A REDUCER handling components in the store, changed when:
@@ -39,17 +40,7 @@ const component = (state = {}, action) => {
 const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
-			var updatedState = [...state, component(undefined, action)]
-			if (action.screenId === null) {
-				return updatedState;
-			} else {
-				for (var i=0; i<updatedState.length; i++) {
-					if (updatedState[i].Uuid === action.screenId) {
-						updatedState[i].children = updatedState[i].children || [];
-						updatedState[i].children.push(action.Uuid);
-					}
-				}
-			}
+			var updatedState = insertUuidIntoState([...state, component(undefined, action)], action, false);
 			return updatedState
 
 		/** 
