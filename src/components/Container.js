@@ -23,7 +23,6 @@ export default class Container extends Component {
         { name: 'Label', type: ItemTypes.LABEL, id: true },
         { name: 'Table', type: ItemTypes.TABLE, id: true }
       ];
-      debugger;
     return (
       <div>
         <div>

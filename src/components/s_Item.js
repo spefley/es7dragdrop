@@ -30,14 +30,20 @@ const target = {
 		return true; 
 	},
 
-	drop(props, monitor, component) {
+	hover(props, monitor) {
 		debugger;
+	},
+
+	drop(props, monitor, component) {
 		if (monitor.didDrop()) {
 			return;
 		}
 		console.log(props.item.Uuid, props, component);
 		// check if id is already in the list of items, if not, insert, otherwise, move
-		return {uuid: props.item.Uuid};
+		return {
+			uuid: props.item.Uuid,
+			type: props.item.type
+		};
 	}
 }
 
@@ -72,7 +78,7 @@ export default class Item extends Component {
 
 	render() {
 		const {connectDropTarget, connectDragSource, 
-			item: {Uuid, $Name, $Components}, parent, move, find} = this.props;
+			item, item: {Uuid, $Name, $Components}, parent, move, find} = this.props;
 		let children = $Components
 		if ($Components === undefined) {
 			children = []
@@ -100,15 +106,34 @@ export default class Item extends Component {
 					{$Name}</div>
 				)}
 				<div style={{display}}>
-				<Tree 
-					parent={Uuid}
-					items={children}
-					move={move}
-					find={find}
-				/>
+					<Dropzone
+						isVisible={this.hasContentDropzone(item.type) && this.props.isOver}
+					/>
+					<Tree 
+						parent={Uuid}
+						items={children}
+						move={move}
+						find={find}
+					/>
 				</div>
-				<Dropzone isVisible={this.props.isOver}/>
+				<Dropzone
+					isVisible={this.hasAfterDropzone(item.type) && this.props.isOver}
+				/>
 			</div>
 		)
+	}
+
+	hasAfterDropzone(type) {
+		return type !== "Form";
+	}
+
+	hasContentDropzone(type) {
+		return type === "HorizontalArrangement" ||
+			type === "HorizontalScrollArrangement" ||
+			type === "TableArrangement" ||
+			type === "VerticalArrangement" ||
+			type === "VerticalScrollArrangement" ||
+			type === "Form";
+		// TODO: jank begets jank
 	}
 }
