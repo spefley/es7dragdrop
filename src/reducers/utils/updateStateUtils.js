@@ -1,27 +1,24 @@
-import { findIndex } from "lodash";
+import { findIndex, each} from "lodash";
 
-export const insertUuidIntoState = (state, action, insertInChildren) => {
-    const {compProperties, afterId} = action;
+export const insertUuidIntoState = (state, uuid, afterId, insertInChildren) => {
     if (afterId == undefined) {
-        state[0].children.push(compProperties.Uuid);
+        state[0].children.push(uuid);
         return state;
     }
 
-    var newState = state.map(component => Object.assign({},component))
-
-    if(compProperties.Uuid == afterId) {
-        return newState
+    if(uuid == afterId) {
+        return state
     }
 
     let index;
     let newChildren;
     if (insertInChildren) {
-        index = findIndex(newState, (component) => { return component.id == afterId; });
-        newChildren = [compProperties.Uuid, ...newState[index].children];
-        newState[index].children = newChildren;
+        index = findIndex(state, (component) => { return component.id == afterId; });
+        newChildren = [uuid, ...state[index].children];
+        state[index].children = newChildren;
     } else {
         let indexInChildren;
-        index = findIndex(newState, (component) => {
+        index = findIndex(state, (component) => {
             indexInChildren = findIndex(component.children, (child) => {
                 console.log(child, child == afterId);
                 return child == afterId;
@@ -29,8 +26,8 @@ export const insertUuidIntoState = (state, action, insertInChildren) => {
             console.log(indexInChildren);
             return indexInChildren > -1;
         });
-        newChildren = newState[index].children.splice(indexInChildren + 1, 0, compProperties.Uuid);
+        state[index].children.splice(indexInChildren + 1, 0, uuid);
     }
 
-    return newState
+    return state
 }

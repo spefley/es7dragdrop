@@ -1,4 +1,5 @@
 import { insertUuidIntoState } from './utils/updateStateUtils';
+import { findIndex, forEach, remove } from "lodash";
 
 /** 
  * A REDUCER handling components in the store
@@ -43,7 +44,8 @@ const component = (state = {}, action) => {
 const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
-			var updatedState = insertUuidIntoState([...state, component(undefined, action)], action, false);
+			var newState = state.map(component => Object.assign({},component))
+			var updatedState = insertUuidIntoState([...newState, component(undefined, action)], action.compProperties.Uuid, action.afterId, false);
 			return updatedState
 			// return [...state, component(undefined, action)]
 
@@ -64,36 +66,21 @@ const components = (state = [], action) => {
 
 		case 'MOVE_COMPONENT':
 			var newState = state.map(component => Object.assign({},component))
-			if(action.id == action.afterId) {
-				return newState
-			}
-			let dest = []
-			if(action.nodeId) {
-				dest = newState.filter(comp => comp.Uuid == action.nodeId)[0].children
-			} else {
-			    //screen1
-			    dest = newState[0].children
-			}
+
+			const index = findIndex(newState, (component) => {
+				const childIndex = findIndex(component.children, (child) => {
+					// for some reason only checking first child in children list TODO
+					return child == action.id;
+				});
+				if (childIndex > -1) {
+					return true;
+				}
+				return false;
+			});
+			remove(newState[index].children, (id) => { return id == action.id; });
+
 			
-			if (!action.afterId) {
-		      //removeNode(id, tree)
-		      state.map(component => {
-		        if(component.children && component.children.indexOf(action.id) != -1) {
-                  component.children.splice(component.children.indexOf(action.id),1)
-		        }
-		      })
-    		  dest.push(action.id)
-		    } else {
-		      const index = dest.indexOf(dest.filter(v => v === action.afterId).shift())
-		      state.map(component => {
-		        if(component.children && component.children.indexOf(action.id) != -1) {
-                  component.children.splice(component.children.indexOf(action.id),1)
-		        }
-		      })
-		      dest.splice(index, 0, action.id)
-		    }
-			
-			return newState
+			return insertUuidIntoState(newState, action.id, action.afterId, false);
 
 
 		default:
