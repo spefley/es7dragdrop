@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import Tree from './s_Tree';
 import { DragSourceTypes } from '../constants/DragSourceTypes';
+import Dropzone from './Dropzone';
 
 const style = {
 	padding: '0.5em'
@@ -29,24 +30,8 @@ const target = {
 		return true; 
 	},
 
-	hover(props, monitor) {
-		/*
-		const {id: draggedId} = monitor.getItem()
-		const {id: overId} = props 
-
-		if (draggedId === overId || draggedId === props.parent) {
-			return;
-		}
-
-		if (!monitor.isOver({shallow: true})) {
-			return;
-		}
-
-		props.move(draggedId, overId, props.parent)
-		*/
-	},
-
 	drop(props, monitor, component) {
+		debugger;
 		if (monitor.didDrop()) {
 			return;
 		}
@@ -56,8 +41,9 @@ const target = {
 	}
 }
 
-@DropTarget(DragSourceTypes.COMPONENT, target, connect => ({
-	connectDropTarget: connect.dropTarget()
+@DropTarget(DragSourceTypes.COMPONENT, target, (connect, monitor) => ({
+	connectDropTarget: connect.dropTarget(),
+	 isOver: monitor.isOver({ shallow: true }),
 }))
 @DragSource(DragSourceTypes.COMPONENT, source, (connect) => ({
 	connectDragSource: connect.dragSource(), 
@@ -121,6 +107,7 @@ export default class Item extends Component {
 					find={find}
 				/>
 				</div>
+				<Dropzone isVisible={this.props.isOver}/>
 			</div>
 		)
 	}

@@ -16,13 +16,14 @@ const style = {
 
 export default class Container extends Component {
   render() {
-    const nestedTree = create_tree(this.props.components)
-    const dustbins = this.props.dustbins
+    const nestedTree = create_tree(this.props.components);
+    const dustbins = this.props.dustbins;
     const boxes = [
         { name: 'Button', type: ItemTypes.BUTTON, id: true },
         { name: 'Label', type: ItemTypes.LABEL, id: true },
         { name: 'Table', type: ItemTypes.TABLE, id: true }
-      ]
+      ];
+      debugger;
     return (
       <div>
         <div>
