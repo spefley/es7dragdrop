@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Dustbin from './Dustbin';
@@ -15,44 +15,14 @@ const style = {
 };
 
 export default class Container extends Component {
-
-  constructor(props) {
-    super(props);
-    
-    var nestedTree = create_tree(this.props.components,"0");
-
-    this.state = { tree: [
-      {id: 1, title: 'wow', children: [
-        {id: 2, title: 'yay', children: []},
-        {id: 3, title: 'yeet', children: [
-          {id: 4, title: 'woot', children: []}
-        ]}
-      ]},  
-      
-      {id: 5, title: 'yes', children: [
-        {id: 6, title: 'meow', children: [
-          {id: 7, title: 'yas', children: []}
-        ]}
-      ]}]
-    }
-  };
-
-
   render() {
-
-    //const { items } = this.state;
-    const {tree} = this.state
-
-    const nestedTree = create_tree(this.props.components,this.props.selectedScreen)
-
+    const nestedTree = create_tree(this.props.components)
     const dustbins = this.props.dustbins
-    
     const boxes = [
         { name: 'Button', type: ItemTypes.BUTTON, id: true },
         { name: 'Label', type: ItemTypes.LABEL, id: true },
         { name: 'Table', type: ItemTypes.TABLE, id: true }
       ]
-
     return (
       <div>
         <div>
@@ -61,10 +31,15 @@ export default class Container extends Component {
             items={[nestedTree]}
             move={this.moveItem}
             find={this.findItem}
+            onDrop={this.onDrop}
           />
         </div>
       </div>
     );
+  }
+
+  onDrop = (id, afterId) => {
+    this.props.onDrop(id, afterId);
   }
 
   moveItem = (id, afterId, nodeId) => {

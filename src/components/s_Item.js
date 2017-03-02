@@ -11,13 +11,16 @@ const source = {
 	beginDrag(props) {
 		return {
 			id: props.id, 
-			parent: props.parent, 
-			items: (props.item.$Components ? props.item.$Components : [])
 		}
 	}, 
 
-	isDragging(props, monitor) {
-		return props.id == monitor.getItem().id
+	endDrag(props, monitor, component) {
+		const dropTargetUuid = monitor.getDropResult().uuid;
+		//TODO (spefley) improve LOL 
+		//debugger;
+
+		//component.props.onClick(props.compType);
+		component.props.move(props.id, dropTargetUuid);
 	}
 }
 
@@ -56,10 +59,8 @@ const target = {
 @DropTarget(DragSourceTypes.COMPONENT, target, connect => ({
 	connectDropTarget: connect.dropTarget()
 }))
-@DragSource('ITEM', source, (connect, monitor) => ({
+@DragSource(DragSourceTypes.COMPONENT, source, (connect) => ({
 	connectDragSource: connect.dragSource(), 
-	connectDragPreview: connect.dragPreview(), 
-	isDragging: monitor.isDragging()
 }))
 export default class Item extends Component {
 	static propTypes = {
@@ -67,7 +68,8 @@ export default class Item extends Component {
 		parent: PropTypes.any, 
 		item: PropTypes.object, 
 		move: PropTypes.func, 
-		find: PropTypes.func
+		find: PropTypes.func,
+        onDrop: PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -83,9 +85,8 @@ export default class Item extends Component {
 	}
 
 	render() {
-		const {connectDropTarget, connectDragPreview, connectDragSource, 
-			item: {Uuid, $Name, $Components}, parent, move, find} = this.props
-
+		const {connectDropTarget, connectDragSource, 
+			item: {Uuid, $Name, $Components}, parent, move, find} = this.props;
 		let children = $Components
 		if ($Components === undefined) {
 			children = []
@@ -106,7 +107,7 @@ export default class Item extends Component {
 		  display = "none"
 		}
 
-		return connectDropTarget(connectDragPreview(
+		return connectDropTarget(
 			<div>
 				{connectDragSource(
 					<div onClick={this.handleClick} style={{...style, backgroundColor }}>
@@ -121,6 +122,6 @@ export default class Item extends Component {
 				/>
 				</div>
 			</div>
-		))
+		)
 	}
 }
