@@ -16,7 +16,7 @@ const style = {
 
 export default class Container extends Component {
   render() {
-    const nestedTree = create_tree(this.props.components);
+    const nestedTree = create_tree(this.props.components, this.props.selectedScreen);
     const dustbins = this.props.dustbins;
     const boxes = [
         { name: 'Button', type: ItemTypes.BUTTON, id: true },

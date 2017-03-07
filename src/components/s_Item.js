@@ -30,10 +30,6 @@ const target = {
 		return true; 
 	},
 
-	hover(props, monitor) {
-		debugger;
-	},
-
 	drop(props, monitor, component) {
 		if (monitor.didDrop()) {
 			return;
