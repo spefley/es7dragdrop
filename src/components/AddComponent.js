@@ -51,7 +51,7 @@ export default class AddComponent extends Component {
 		<div>
             <div style={{width:'500px', wordWrap:'break-word'}}>{stateString}</div>
 			{categories.map((categoryName) => 
-				<div>
+				<div key={categoryName}>
 					<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
 					<br/>
 					{componentCategories[categoryName].map((compType) =>

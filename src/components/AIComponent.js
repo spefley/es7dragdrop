@@ -34,9 +34,10 @@ function beginDrag(props, monitor, component) {
 };
 
 function endDrag(props, monitor, component) {
+    console.log("hi");
     const dropTargetUuid = monitor.getDropResult().uuid;
     //TODO (spefley) improve LOL 
-    //debugger;
+    debugger;
 
     //component.props.onClick(props.compType);
     component.props.onDrop(props.compType, dropTargetUuid);

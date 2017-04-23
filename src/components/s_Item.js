@@ -18,7 +18,7 @@ const source = {
 	endDrag(props, monitor, component) {
 		const dropTargetUuid = monitor.getDropResult().uuid;
 		//TODO (spefley) improve LOL 
-		//debugger;
+		debugger;
 
 		//component.props.onClick(props.compType);
 		component.props.move(props.id, dropTargetUuid);
@@ -31,7 +31,8 @@ const target = {
 	},
 
 	drop(props, monitor, component) {
-		if (monitor.didDrop()) {
+		debugger;
+		if (monitor.didDrop() || props.item.Uuid === monitor.getItem()) {
 			return;
 		}
 		console.log(props.item.Uuid, props, component);

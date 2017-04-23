@@ -27,7 +27,7 @@ export default class Screens extends Component {
 					var tabColor = this.props.selectedScreen === Uuid ? 'pink' : 'lightyellow';
 					
 					return (
-					<div style={{...screen_tab_style, backgroundColor:tabColor}}>
+					<div key={name + "_" + Uuid} style={{...screen_tab_style, backgroundColor:tabColor}}>
 						<a onClick={() => thisComponent.props.chooseScreen(Uuid)}>{name}</a>
 						<br/>
 					</div>
