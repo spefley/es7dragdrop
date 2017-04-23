@@ -1,4 +1,4 @@
-import { findIndex, each} from "lodash";
+import { findIndex, each, flattenDeep } from "lodash";
 
 export const insertUuidIntoState = (state, uuid, dropTargetId, insertInChildren) => {
     if (dropTargetId == undefined) {
@@ -29,4 +29,25 @@ export const insertUuidIntoState = (state, uuid, dropTargetId, insertInChildren)
     }
 
     return state
+}
+
+export const insertingIntoDescendant = (sourceId, targetId, state) => {
+    // TODO (spefley): store this info in thing to start with?
+    // sourceId in children of targetId
+    let children = state[state.findIndex((el) => el.Uuid == sourceId)].children;
+    const treeList = insertIntoDescendantRecur(targetId, state, children);
+    var result = flattenDeep(treeList).some((el) => el);
+    return flattenDeep(treeList).some((el) => el);
+}
+
+const insertIntoDescendantRecur = (targetId, state, children) => {
+    if (children) {
+        const indexOfTarget = children.findIndex((id) => id == targetId);
+        if (indexOfTarget > -1) {
+            return [true];
+        } else {
+            return children.map((childId) => insertIntoDescendantRecur(targetId, state, state[state.findIndex((el) => el.Uuid == childId)].children));
+        }
+    }
+    return [false];
 }

@@ -22,9 +22,9 @@ const source = {
 			const dropTargetUuid = monitor.getDropResult().uuid;
 			//TODO (spefley) improve LOL 
 			//debugger;
-
-			//component.props.onClick(props.compType);
-			component.props.move(props.id, dropTargetUuid, dropZoneType);
+			if (props.id != dropTargetUuid) {
+				component.props.move(props.id, dropTargetUuid, dropZoneType);
+			}
 		}
 	}
 }
