@@ -1,6 +1,5 @@
 import { insertUuidIntoState } from './utils/updateStateUtils';
 import { findIndex, forEach, remove } from "lodash";
-import { DropZoneTypes } from "../constants/DropZoneTypes";
 
 /** 
  * A REDUCER handling components in the store
@@ -46,8 +45,7 @@ const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
 			var newState = state.map(component => Object.assign({},component))
-			var insertInChildren = action.dropZoneType === DropZoneTypes.CONTENT;
-			var updatedState = insertUuidIntoState([...newState, component(undefined, action)], action.compProperties.Uuid, action.afterId, insertInChildren);
+			var updatedState = insertUuidIntoState([...newState, component(undefined, action)], action.compProperties.Uuid, action.afterId, false);
 			return updatedState
 			// return [...state, component(undefined, action)]
 
@@ -68,7 +66,6 @@ const components = (state = [], action) => {
 
 		case 'MOVE_COMPONENT':
 			var newState = state.map(component => Object.assign({},component))
-			var insertInChildren = action.dropZoneType === DropZoneTypes.CONTENT;
 
 			const index = findIndex(newState, (component) => {
 				const childIndex = findIndex(component.children, (child) => {
@@ -83,7 +80,7 @@ const components = (state = [], action) => {
 			remove(newState[index].children, (id) => { return id == action.id; });
 
 			
-			return insertUuidIntoState(newState, action.id, action.afterId, insertInChildren);
+			return insertUuidIntoState(newState, action.id, action.afterId, false);
 
 
 		default:

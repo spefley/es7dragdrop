@@ -17,13 +17,15 @@ const source = {
 	}, 
 
 	endDrag(props, monitor, component) {
-		const { uuid, dropZoneType } = monitor.getDropResult();
-		const dropTargetUuid = monitor.getDropResult().uuid;
-		//TODO (spefley) improve LOL 
-		//debugger;
+		if (monitor.getDropResult()) {
+			const { uuid, dropZoneType } = monitor.getDropResult();
+			const dropTargetUuid = monitor.getDropResult().uuid;
+			//TODO (spefley) improve LOL 
+			//debugger;
 
-		//component.props.onClick(props.compType);
-		component.props.move(props.id, dropTargetUuid, dropZoneType);
+			//component.props.onClick(props.compType);
+			component.props.move(props.id, dropTargetUuid, dropZoneType);
+		}
 	}
 }
 
@@ -82,7 +84,6 @@ export default class Item extends Component {
 				)}
 				<div style={contentDropzoneStyle}>
 					<Dropzone
-						isVisible={this.hasContentDropzone(item.type) && this.props.isOver}
 						item={this.props.item}
 						dropZoneType={DropZoneTypes.CONTENT}
 					/>
@@ -94,7 +95,6 @@ export default class Item extends Component {
 					/>
 				</div>
 				<Dropzone
-					isVisible={this.hasAfterDropzone(item.type) && this.props.isOver}
 					item={this.props.item}
 					dropZoneType={DropZoneTypes.AFTER}
 				/>

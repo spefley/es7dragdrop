@@ -34,13 +34,14 @@ function beginDrag(props, monitor, component) {
 };
 
 function endDrag(props, monitor, component) {
-    const { uuid, dropZoneType } = monitor.getDropResult();
-    const dropTargetUuid = monitor.getDropResult().uuid;
-    //TODO (spefley) improve LOL 
-    //debugger;
+    if (monitor.getDropResult()) {
+        const { uuid, dropZoneType } = monitor.getDropResult();
+        const dropTargetUuid = monitor.getDropResult().uuid;
+        //TODO (spefley) improve LOL 
 
-    //component.props.onClick(props.compType);
-    component.props.onDrop(props.compType, dropTargetUuid, dropZoneType);
+        //component.props.onClick(props.compType);
+        component.props.onDrop(props.compType, dropTargetUuid, dropZoneType);
+    }
 };
 
 function collect(connect, monitor) {

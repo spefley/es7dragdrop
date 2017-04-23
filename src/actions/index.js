@@ -34,8 +34,8 @@ export function selectComponent(componentId) {
   return Object.assign({type: 'SELECT_COMPONENT'}, {id: componentId})
 }
 
-export function moveComponent(id, afterId, nodeId, dropZoneType) {
-  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, nodeId, dropZoneType})
+export function moveComponent(id, afterId, dropZoneType) {
+  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, dropZoneType})
 }
 
 // update component

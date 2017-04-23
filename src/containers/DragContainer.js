@@ -12,8 +12,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onDrop: (componentId, afterId, dropZoneType) => {
     dispatch(moveComponent(componentId, afterId, dropZoneType))
   },
-  moveComp: (componentId, afterId) => {
-    dispatch(moveComponent(componentId, afterId))
+  moveComp: (componentId, afterId, dropZoneType) => {
+    dispatch(moveComponent(componentId, afterId, dropZoneType))
   }
 })
 

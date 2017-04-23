@@ -26,21 +26,15 @@ const target = {
 
 const dropzone_style_visible = {
     width: '100%',
-    height: '10px',
-    background: 'blue'
+    height: '20px',
+    background: 'blue',
+    opacity: '.5'
 }
 
 const dropzone_style_not_visible = {
     width: '100%',
-    height: '0px',
-    opacity: '0'
-}
-
-const dropzone_drop_area = {
-    width: '100%',
-    margin: '10px 0',
-    top: '-5px',
-    position: 'relative'
+    height: '10px',
+    opacity: '0',
 }
 
 @DropTarget(DragSourceTypes.COMPONENT, target, (connect, monitor) => ({
@@ -49,22 +43,20 @@ const dropzone_drop_area = {
 }))
 export default class Dropzone extends Component {
 	static propTypes = {
-		isVisible: PropTypes.bool.isRequired,
 		item: PropTypes.object.isRequired, 
         dropZoneType: PropTypes.string.isRequired 
     }
 
     render() {
-        const {connectDropTarget} = this.props;
+        const {connectDropTarget, isOver} = this.props;
+
         let style = dropzone_style_not_visible;
-        if (this.props.isVisible) {
+        if (isOver) {
             style = dropzone_style_visible
         }
 
         return connectDropTarget(
-            <div style={dropzone_drop_area}>
-                <div style={dropzone_style_visible}>
-                </div>
+            <div style={style}>
             </div>
         );
     }

@@ -11,10 +11,9 @@ export const insertUuidIntoState = (state, uuid, dropTargetId, insertInChildren)
     }
 
     let index;
-    let newChildren;
     if (insertInChildren) {
         index = findIndex(state, (component) => { return component.Uuid == dropTargetId; });
-        newChildren = [uuid, ...state[index].children];
+        const newChildren = state[index].children ? [uuid, ...state[index].children] : [uuid];
         state[index].children = newChildren;
     } else {
         let indexInChildren;

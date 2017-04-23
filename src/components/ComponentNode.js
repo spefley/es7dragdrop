@@ -47,7 +47,7 @@ export default class ComponentNode extends Component {
 		var subComps = "";
 		if (this.props.subcomponents && this.state.isToggleOn) {
 			subComps = this.props.subcomponents.map(({$Name, Uuid, $Components}) =>
-				(<ComponentNode name={$Name} id={Uuid} subcomponents={$Components}onClickFunction={this.props.onClickFunction} selectedComponent={this.props.selectedComponent}/>)
+				(<ComponentNode name={$Name} key={Uuid} id={Uuid} subcomponents={$Components}onClickFunction={this.props.onClickFunction} selectedComponent={this.props.selectedComponent}/>)
 			)
 		}
 
