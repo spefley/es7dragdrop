@@ -17,10 +17,10 @@ export function addToBin(item) {
 	}
 }
 
-export function addNewComponent(compType, afterId) {
+export function addNewComponent(compType, afterId, dropZoneType) {
   var name = compType + nextId;
   var compProperties = {componentType: compType, name:name, Uuid:nextId++, version:"1"};
-  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId })
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId, dropZoneType })
 
 }
 
@@ -34,8 +34,8 @@ export function selectComponent(componentId) {
   return Object.assign({type: 'SELECT_COMPONENT'}, {id: componentId})
 }
 
-export function moveComponent(id, afterId, nodeId) {
-  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, nodeId})
+export function moveComponent(id, afterId, nodeId, dropZoneType) {
+  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, nodeId, dropZoneType})
 }
 
 // update component

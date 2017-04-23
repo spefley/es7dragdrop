@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDrop: (componentId, afterId) => {
-    dispatch(moveComponent(componentId, afterId))
+  onDrop: (componentId, afterId, dropZoneType) => {
+    dispatch(moveComponent(componentId, afterId, dropZoneType))
   },
   moveComp: (componentId, afterId) => {
     dispatch(moveComponent(componentId, afterId))
