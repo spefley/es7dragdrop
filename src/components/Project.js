@@ -4,7 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import DragContainer from '../containers/DragContainer';
 import PropertiesContainer from '../containers/PropertiesContainer';
 import ComponentsContainer from '../containers/ComponentsContainer';
-import AddComponentContainer from '../containers/AddComponentContainer';
+import AddComponentContainer from '../containers/AddComponentContainer'; //prev AddButtonContainer
 import ExportContainer from '../containers/ExportContainer';
 import ScreensContainer from '../containers/ScreensContainer';
 
@@ -14,7 +14,7 @@ import ScreensContainer from '../containers/ScreensContainer';
 const panel_style = {
 	border: '1px dashed black',
 	backgroundColor: 'lightblue',
-	padding: '0.5em',
+	padding: '0.5em 1em',
 	marginRight: '1.5em',
 	marginBottom: '1.5em',
 	float: 'left',
@@ -29,9 +29,17 @@ const screens_panel_style = {
 	margin: '0.5em'
 }
 
-/** 
- * Gives some style to the headings of each panel/container.
- */
+const panel_style_palette = {
+	border: '1px dashed black',
+	backgroundColor: 'lightblue',
+	padding: '0.5em 1em',
+	marginRight: '1.5em',
+	marginBottom: '1.5em',
+	float: 'left',
+	position: 'relative',
+	width:'150px'
+}
+
 const headings = {
 	...panel_style,
 	backgroundColor: 'turquoise',

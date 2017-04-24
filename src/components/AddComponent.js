@@ -44,12 +44,11 @@ export default class AddComponent extends Component {
     var categories = ["USERINTERFACE", "LAYOUT", "SENSORS", "CONNECTIVITY", "ANIMATION", "MEDIA", "SOCIAL", "LEGOMINDSTORMS", "STORAGE", "EXPERIMENTAL", "INTERNAL"]
 
 
-    var selectedScreen = this.props.selectedScreen;
+    var selectedScreen = this.props.selectedScreen || "0";
 	// Creates buttons for creating type of each component and adding to store
     // Buttons categorized above
 	return (
 		<div>
-            <div style={{width:'500px', wordWrap:'break-word'}}>{stateString}</div>
 			{categories.map((categoryName) => 
 				<div key={categoryName}>
 					<button style={{backgroundColor: '#a3fff2', fontSize: '11pt'}}>{categoryName}</button>
@@ -60,15 +59,17 @@ export default class AddComponent extends Component {
 							onClick={this.onClick}
 							onDrop={this.props.addComponent}
 							key={compType}
+							screen={selectedScreen}
 						/>
 					)}
 				</div>
 			)}
+            <div style={{width:'500px', wordWrap:'break-word'}}>{stateString}</div>
 		</div>
 	);
 	}
 
 	onClick = (compType) => {
-		this.props.addComponent(compType);
+		this.props.addComponent(compType, this.props.selectedScreen);
 	}
 }

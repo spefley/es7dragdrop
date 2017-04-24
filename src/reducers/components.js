@@ -1,6 +1,7 @@
 import { getAllSubcomponents } from '../components/helperFunctions'
-import { insertUuidIntoState } from './utils/updateStateUtils';
+import { insertUuidIntoState, insertingIntoDescendant } from './utils/updateStateUtils';
 import { findIndex, forEach, remove } from "lodash";
+import { DropZoneTypes } from "../constants/DropZoneTypes";
 
 /** 
  * A REDUCER handling components in the store, changed when:
@@ -42,8 +43,15 @@ const components = (state = [], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_COMPONENT':
 			var newState = state.map(component => Object.assign({},component))
-			var updatedState = insertUuidIntoState([...newState, component(undefined, action)], action.compProperties.Uuid, action.afterId, false);
+			var insertInChildren = action.dropZoneType === DropZoneTypes.CONTENT;
+			var updatedState = insertUuidIntoState([...newState, component(undefined, action)], action.compProperties.Uuid, action.afterId, insertInChildren);
 			return updatedState
+			// return [...state, component(undefined, action)]
+
+		// case 'UPDATE_COMPONENT':
+		// search through array
+		// find which one has id
+		// then update property
 
 		/** 
 		 * Searches through the list of components, finds the component with 
@@ -82,22 +90,26 @@ const components = (state = [], action) => {
 			return newState;
 
 		case 'MOVE_COMPONENT':
-			var newState = state.map(component => Object.assign({},component))
-
-			const index = findIndex(newState, (component) => {
-				const childIndex = findIndex(component.children, (child) => {
-					// for some reason only checking first child in children list TODO
-					return child == action.id;
+			if (!insertingIntoDescendant(action.id, action.afterId, state)) {
+				var newState = state.map(component => Object.assign({},component))
+				var insertInChildren = action.dropZoneType === DropZoneTypes.CONTENT;
+				const index = findIndex(newState, (component) => {
+					const childIndex = findIndex(component.children, (child) => {
+						// for some reason only checking first child in children list TODO
+						return child == action.id;
+					});
+					if (childIndex > -1) {
+						return true;
+					}
+					return false;
 				});
-				if (childIndex > -1) {
-					return true;
-				}
-				return false;
-			});
-			remove(newState[index].children, (id) => { return id == action.id; });
+				remove(newState[index].children, (id) => { return id == action.id; });
 
-			
-			return insertUuidIntoState(newState, action.id, action.afterId, false);
+				
+				return insertUuidIntoState(newState, action.id, action.afterId, insertInChildren);
+			} else {
+				return state;
+			}
 
 
 		default:

@@ -16,8 +16,8 @@ export default class Tree extends Component {
 		return (
 			<div style={{
 				border: '1px dotted black', 
-				padding: '0.5rem',
-				margin: '0.5rem',
+				padding: '0.5rem 0.5rem 0 0.5rem',
+				margin: '0 0.5rem',
 				cursor: 'move', 
 			}}>
 				{items.map((item, i) => {

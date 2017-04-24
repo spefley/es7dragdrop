@@ -33,6 +33,8 @@ export default class ComponentNode extends Component {
 					name={$Name}
 					id={Uuid}
 					subcomponents={$Components}
+					onClickFunction={this.props.onClickFunction}
+					selectedComponent={this.props.selectedComponent}
 					/>)
 			)
 		}

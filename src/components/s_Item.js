@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
+import { DragSource } from 'react-dnd';
 import Tree from './s_Tree';
 import { DragSourceTypes } from '../constants/DragSourceTypes';
 import Dropzone from './Dropzone';
+import { DropZoneTypes } from "../constants/DropZoneTypes";
 
 const style = {
 	padding: '0.5em'
@@ -16,38 +17,18 @@ const source = {
 	}, 
 
 	endDrag(props, monitor, component) {
-		const dropTargetUuid = monitor.getDropResult().uuid;
-		//TODO (spefley) improve LOL 
-		debugger;
-
-		//component.props.onClick(props.compType);
-		component.props.move(props.id, dropTargetUuid);
-	}
-}
-
-const target = {
-	canDrop(props) {
-		return true; 
-	},
-
-	drop(props, monitor, component) {
-		debugger;
-		if (monitor.didDrop() || props.item.Uuid === monitor.getItem()) {
-			return;
+		if (monitor.getDropResult()) {
+			const { uuid, dropZoneType } = monitor.getDropResult();
+			const dropTargetUuid = monitor.getDropResult().uuid;
+			//TODO (spefley) improve LOL 
+			//debugger;
+			if (props.id != dropTargetUuid) {
+				component.props.move(props.id, dropTargetUuid, dropZoneType);
+			}
 		}
-		console.log(props.item.Uuid, props, component);
-		// check if id is already in the list of items, if not, insert, otherwise, move
-		return {
-			uuid: props.item.Uuid,
-			type: props.item.type
-		};
 	}
 }
 
-@DropTarget(DragSourceTypes.COMPONENT, target, (connect, monitor) => ({
-	connectDropTarget: connect.dropTarget(),
-	 isOver: monitor.isOver({ shallow: true }),
-}))
 @DragSource(DragSourceTypes.COMPONENT, source, (connect) => ({
 	connectDragSource: connect.dragSource(), 
 }))
@@ -74,7 +55,7 @@ export default class Item extends Component {
 	}
 
 	render() {
-		const {connectDropTarget, connectDragSource, 
+		const {connectDragSource, selectedComponent,
 			item, item: {Uuid, $Name, $Components}, parent, move, find} = this.props;
 		let children = $Components
 		if ($Components === undefined) {
@@ -86,25 +67,25 @@ export default class Item extends Component {
 			backgroundColor = 'lightgreen'
 		}
 
-		const selectedComponent = this.props.selectedComponent 
 
 		//console.log(Uuid,$Name, $Components, parent)
-		let display = "block"
-		if(children.length != 0) {
-		  display = "block"
+		let contentDropzoneStyle = {};
+		if(this.hasContentDropzone(item.type)) {
+		  contentDropzoneStyle["display"] = "block";
 		} else {
-		  display = "none"
+		  contentDropzoneStyle["display"] = "none";
 		}
 
-		return connectDropTarget(
+		return (
 			<div>
 				{connectDragSource(
 					<div onClick={this.handleClick} style={{...style, backgroundColor }}>
 					{$Name}</div>
 				)}
-				<div style={{display}}>
+				<div style={contentDropzoneStyle}>
 					<Dropzone
-						isVisible={this.hasContentDropzone(item.type) && this.props.isOver}
+						item={this.props.item}
+						dropZoneType={DropZoneTypes.CONTENT}
 					/>
 					<Tree 
 						parent={Uuid}
@@ -114,7 +95,8 @@ export default class Item extends Component {
 					/>
 				</div>
 				<Dropzone
-					isVisible={this.hasAfterDropzone(item.type) && this.props.isOver}
+					item={this.props.item}
+					dropZoneType={DropZoneTypes.AFTER}
 				/>
 			</div>
 		)

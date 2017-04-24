@@ -8,8 +8,7 @@
  * selectComponent - updates which component is selected
  * toggleComponent - updates component if toggled
  */
-let nextId = 2;
-
+let nextId = 2
 
 export function addToBin(item) {
 	return {
@@ -20,10 +19,10 @@ export function addToBin(item) {
 	}
 }
 
-export function addNewComponent(compType, selectedScreen, afterId) {
+export function addNewComponent(compType, selectedScreen, afterId, dropZoneType) {
   var name = compType + nextId;
   var compProperties = {name:name, componentType: compType, Uuid:(nextId++).toString(), version:"1", screenId:selectedScreen};
-  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId })
+  return Object.assign({type: 'ADD_NEW_COMPONENT'}, { compProperties, afterId, dropZoneType })
 }
 
 // updates specific property value to input value for a component - Properties Panel
@@ -52,11 +51,9 @@ export function deleteComponent(compId, selScreen, delScreen) {
   return Object.assign({type: 'DELETE_COMPONENT'}, {id: compId, selectedScreen: selScreen, deleteScreen: delScreen})
 }
 
-export function moveComponent(id, afterId, nodeId) {
-  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, nodeId})
+export function moveComponent(id, afterId, dropZoneType) {
+  return Object.assign({type: 'MOVE_COMPONENT'}, {id, afterId, dropZoneType})
 }
 
 // update component
 // id, property name, new property value
-
-
