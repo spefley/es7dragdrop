@@ -12,9 +12,9 @@ const mapStateToProps = (state, ownProps) => {
   const projectTree = create_tree(state.components, state.selectedScreen);
 
   window.getComponentsInAIAFileFormat = function() {
-    return "#| $JSON " +
+    return "#|\n$JSON\n" +
       JSON.stringify(projectTree).replace(/type\":/g, "$Type\":") +
-      " |#";
+      "\n|#";
   }.bind(this);
   return {
     selectedComponent: state.selectedComponent,
