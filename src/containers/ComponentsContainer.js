@@ -14,23 +14,31 @@ const mapStateToProps = (state, ownProps) => ({
   projectTree: create_tree(state.components, state.selectedScreen)
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  removeComponent: (id, selectedScreen, delScreen=false) => {
-  	dispatch(deleteComponent(id, selectedScreen, delScreen))
-  },
-  loadProject: () => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const loadProjectFromComponents = (components) => {
     dispatch(selectScreen("0"));
     dispatch(clearToggles());
-    dispatch(loadProject([
-      {"name":"Screen1", "componentType":"Form", "version":"20", "AboutScreen":"This is an App!","AppName":"Hello2","Title":"Screen1", "Uuid":"0","children": ["939054039"]},
-      {"name":"HorizontalArrangement1", "componentType":"VerticalArrangement", "version":"3", "AlignHorizontal":"3", "Uuid":"939054039", "children":["1961822558","-1864349167"]},
-      {"componentType":"HorizontalArrangement", "name":"HorizontalArrangement1", "version":"3", "AlignHorizontal":"2", "Uuid":"1961822558", "children":["-496282275","53776343"]},
-      {"name":"Button1", "componentType":"Button", "version":"6", "FontSize":"16", "Text":"Text for Button1", "Uuid":"-496282275"},
-      {"name":"CheckBox1", "componentType":"CheckBox", "version":"2", "FontTypeface":"2", "Text":"Text for CheckBox1", "Uuid":"53776343"},
-      {"name":"PasswordTextBox1", "componentType":"PasswordTextBox", "version":"3", "TextAlignment":"1", "Uuid":"-1864349167"}
-    ]));
+    dispatch(loadProject(components));
   }
-})
+
+  window.jsDesignerLoadProject = loadProjectFromComponents.bind(this);
+
+  return {
+    removeComponent: (id, selectedScreen, delScreen=false) => {
+      dispatch(deleteComponent(id, selectedScreen, delScreen))
+    },
+    loadProject: () => {
+      loadProjectFromComponents([
+        {"name":"Screen1", "componentType":"Form", "version":"20", "AboutScreen":"This is an App!","AppName":"Hello2","Title":"Screen1", "Uuid":"0","children": ["939054039"]},
+        {"name":"HorizontalArrangement1", "componentType":"VerticalArrangement", "version":"3", "AlignHorizontal":"3", "Uuid":"939054039", "children":["1961822558","-1864349167"]},
+        {"componentType":"HorizontalArrangement", "name":"HorizontalArrangement1", "version":"3", "AlignHorizontal":"2", "Uuid":"1961822558", "children":["-496282275","53776343"]},
+        {"name":"Button1", "componentType":"Button", "version":"6", "FontSize":"16", "Text":"Text for Button1", "Uuid":"-496282275"},
+        {"name":"CheckBox1", "componentType":"CheckBox", "version":"2", "FontTypeface":"2", "Text":"Text for CheckBox1", "Uuid":"53776343"},
+        {"name":"PasswordTextBox1", "componentType":"PasswordTextBox", "version":"3", "TextAlignment":"1", "Uuid":"-1864349167"}
+      ]);
+    }
+  }
+}
 
 const ComponentsContainer = connect(
   mapStateToProps,
