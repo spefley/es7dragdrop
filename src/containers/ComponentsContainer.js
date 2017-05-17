@@ -12,9 +12,9 @@ const mapStateToProps = (state, ownProps) => {
   const projectTree = create_tree(state.components, state.selectedScreen);
 
   window.getComponentsInAIAFileFormat = function() {
-    return "#|\n$JSON\n" +
+    return "#|\n$JSON\n{\"authURL\":[\"ai2.appinventor.mit.edu\",\"localhost\"],\"YaVersion\":\"159\",\"Source\":\"Form\",\"Properties\":" +
       JSON.stringify(projectTree).replace(/type\":/g, "$Type\":") +
-      "\n|#";
+      "}\n|#";
   }.bind(this);
   return {
     selectedComponent: state.selectedComponent,
