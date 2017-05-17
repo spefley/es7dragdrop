@@ -8,11 +8,20 @@ import { create_tree } from '../components/helperFunctions'
  * the link between the Components panel and the Properties panel
  */
 
-const mapStateToProps = (state, ownProps) => ({
-  selectedComponent: state.selectedComponent,
-  selectedScreen: state.selectedScreen,
-  projectTree: create_tree(state.components, state.selectedScreen)
-})
+const mapStateToProps = (state, ownProps) => {
+  const projectTree = create_tree(state.components, state.selectedScreen);
+
+  window.getComponentsInAIAFileFormat = function() {
+    return "#| $JSON " +
+      JSON.stringify(projectTree).replace(/type\":/g, "$Type\":") +
+      " |#";
+  }.bind(this);
+  return {
+    selectedComponent: state.selectedComponent,
+    selectedScreen: state.selectedScreen,
+    projectTree: projectTree
+  };
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const loadProjectFromComponents = (components) => {
