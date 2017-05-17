@@ -19,6 +19,10 @@ export function addToBin(item) {
 	}
 }
 
+export function loadProject(components) {
+  return Object.assign({type: 'LOAD_PROJECT_COMPONENTS'}, { components })
+}
+
 export function addNewComponent(compType, selectedScreen, afterId, dropZoneType) {
   var name = compType + nextId;
   var compProperties = {name:name, componentType: compType, Uuid:(nextId++).toString(), version:"1", screenId:selectedScreen};
@@ -41,6 +45,10 @@ export function selectComponent(componentId) {
 // current selectedComponent is hidden due to toggled parent
 export function toggleComponent(componentId, hasSelectedSubcomp) {
   return Object.assign({type: 'TOGGLE_COMPONENT'}, {id: componentId, hasSelectedSubcomp:hasSelectedSubcomp})
+}
+
+export function clearToggles() {
+  return Object.assign({type: 'CLEAR_TOGGLES'}, {})
 }
 
 export function selectScreen(screenId) {

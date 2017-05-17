@@ -24,6 +24,7 @@ export default class ComponentsPanel extends Component {
 
 		return (
 			<div>
+				<button onClick={() => thisComponent.props.loadProject()}>loadProject</button>
 				<button onClick={() => thisComponent.props.removeComponent(thisComponent.props.selectedComponent, thisComponent.props.selectedScreen)} disabled={disableDelete}>Delete</button>
 
 				<ComponentNodeContainer name={name} id={id} subcomponents={subs}/>

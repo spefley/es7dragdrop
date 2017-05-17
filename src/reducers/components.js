@@ -41,6 +41,8 @@ const component = (state = {}, action) => {
 // store has array of components...update store
 const components = (state = [], action) => {
 	switch(action.type) {
+		case 'LOAD_PROJECT_COMPONENTS':
+			return action.components;
 		case 'ADD_NEW_COMPONENT':
 			var newState = state.map(component => Object.assign({},component))
 			var insertInChildren = action.dropZoneType === DropZoneTypes.CONTENT;

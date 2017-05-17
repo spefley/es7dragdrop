@@ -12,6 +12,8 @@ const toggled = (state = {}, action) => {
 		newState[id] = state[id]
 	})
 	switch(action.type) {
+		case 'CLEAR_TOGGLES':
+			return {};
 		case 'TOGGLE_COMPONENT':
 			newState[action.id] = !newState[action.id]
 			return newState
